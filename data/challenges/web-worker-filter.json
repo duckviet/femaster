@@ -1,0 +1,51 @@
+{
+  "id": "web-worker-filter",
+  "title": "Heavy Filtering with Web Workers",
+  "domain": "performance-scalability",
+  "subcategory": "offloading-computation",
+  "difficulty": "Senior",
+  "statement": "Ứng dụng của bạn có một danh sách 500.000 bản ghi. Khi người dùng gõ vào ô search, bạn cần filter mảng này. Việc filter trực tiếp trên Main Thread gây ra hiện tượng 'Jank'.",
+  "constraints": [
+    "Đẩy tính toán filter sang Web Worker.",
+    "Kết hợp Debounce ở Main Thread.",
+    "Xử lý cleanup worker khi component bị hủy."
+  ],
+  "complexity": "Main thread: O(1) message passing. Worker: O(n) filtering.",
+  "codeLines": [
+    "// Main Thread (React)",
+    "const worker = new Worker(new URL(\"./filter.worker.ts\", import.meta.url));",
+    "",
+    "export const SearchPage = () => {",
+    "  const [results, setResults] = useState([]);",
+    "",
+    "  const handleSearch = (query: string) => {",
+    "    worker.postMessage({ query, data: largeDataSet });",
+    "  };",
+    "",
+    "  useEffect(() => {",
+    "    worker.onmessage = (e) => {",
+    "      setResults(e.data);",
+    "    };",
+    "  }, []);",
+    "",
+    "  return <input onChange={(e) => handleSearch(e.target.value)} />;",
+    "};",
+    "",
+    "// Worker Thread (filter.worker.ts)",
+    "self.onmessage = (e) => {",
+    "  const { query, data } = e.data;",
+    "  ",
+    "  const filtered = data.filter((item) => ",
+    "    item.name.toLowerCase().includes(query.toLowerCase())",
+    "  );",
+    "",
+    "  self.postMessage(filtered);",
+    "};"
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Khởi tạo Worker mới bên trong hàm `handleSearch` (gây quá tải).",
+    "Không xử lý cleanup worker khi component bị hủy.",
+    "Không dùng Debounce trước khi gửi message sang Worker."
+  ]
+}

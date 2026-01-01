@@ -1,0 +1,47 @@
+{
+  "id": "memoize-ttl",
+  "title": "Memoization with TTL",
+  "domain": "performance-scalability",
+  "subcategory": "network-caching",
+  "difficulty": "Senior",
+  "statement": "Viết một hàm `memoizeWithTTL(fn, ttl)` nhận vào một hàm `fn` và thời gian sống `ttl` (ms). Kết quả của hàm `fn` phải được lưu lại, nhưng nếu gọi lại sau khoảng thời gian `ttl`, hàm `fn` phải được thực thi lại.",
+  "constraints": [
+    "Phải tạo key cache dựa trên các đối số truyền vào hàm.",
+    "Hỗ trợ cả các hàm bất đồng bộ (Async function)."
+  ],
+  "complexity": "Time: O(1) cache lookup.",
+  "codeLines": [
+    "function memoizeWithTTL<T extends (...args: any[]) => Promise<any>>(",
+    "  fn: T,",
+    "  ttl: number",
+    ") {",
+    "  const cache = new Map<string, { value: any; timestamp: number }>();",
+    "",
+    "  return async function (...args: Parameters<T>): Promise<ReturnType<T>> {",
+    "    const key = JSON.stringify(args);",
+    "    const cachedItem = cache.get(key);",
+    "    const now = Date.now();",
+    "",
+    "    if (cachedItem && now - cachedItem.timestamp < ttl) {",
+    "      return cachedItem.value;",
+    "    }",
+    "",
+    "    const result = await fn(...args);",
+    "    cache.set(key, {",
+    "      value: result,",
+    "      timestamp: now,",
+    "    });",
+    "",
+    "    return result;",
+    "  };",
+    "}",
+    "",
+    "// Usage:",
+    "const cachedFetch = memoizeWithTTL(fetchData, 5000); // Cache 5 seconds"
+  ],
+  "language": "typescript",
+  "commonMistakes": [
+    "Sử dụng `JSON.stringify` làm key có thể gây lỗi với circular reference.",
+    "Không handle `async/await`, dẫn đến việc cache trả về Promise bị treo."
+  ]
+}

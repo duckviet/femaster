@@ -1,0 +1,50 @@
+{
+  "id": "flat-to-tree",
+  "title": "Convert Flat Array to Tree",
+  "domain": "core-cs-javascript",
+  "subcategory": "data-structures",
+  "difficulty": "Mid",
+  "statement": "Frontend nhận được một mảng phẳng các danh mục từ Backend. Hãy chuyển nó thành cấu trúc cây để hiển thị Menu.",
+  "constraints": [
+    "Time: O(n) - Chỉ được duyệt mảng 1 hoặc 2 lần.",
+    "Không dùng lồng vòng lặp O(n²)."
+  ],
+  "complexity": "Time: O(n)",
+  "codeLines": [
+    "interface Node {",
+    "  id: number;",
+    "  parentId: number | null;",
+    "  name: string;",
+    "  children?: Node[];",
+    "}",
+    "",
+    "function convertToTree(flatArray: Node[]): Node[] {",
+    "  const map: Record<number, Node> = {};",
+    "  const roots: Node[] = [];",
+    "",
+    "  // Step 1: Create map and init children",
+    "  flatArray.forEach((item) => {",
+    "    map[item.id] = { ...item, children: [] };",
+    "  });",
+    "",
+    "  // Step 2: Build parent-child relationships",
+    "  flatArray.forEach((item) => {",
+    "    const node = map[item.id];",
+    "    if (item.parentId === null) {",
+    "      roots.push(node);",
+    "    } else {",
+    "      if (map[item.parentId]) {",
+    "        map[item.parentId].children?.push(node);",
+    "      }",
+    "    }",
+    "  });",
+    "",
+    "  return roots;",
+    "}"
+  ],
+  "language": "typescript",
+  "commonMistakes": [
+    "Sử dụng đệ quy kết hợp `.filter()` bên trong mỗi vòng lặp, dẫn đến O(n²).",
+    "Không xử lý được trường hợp `parentId` trỏ đến một `id` không tồn tại."
+  ]
+}

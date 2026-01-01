@@ -1,0 +1,47 @@
+{
+  "id": "deep-merge",
+  "title": "Deep Merge Objects",
+  "domain": "core-cs-javascript",
+  "subcategory": "object-logic",
+  "difficulty": "Mid",
+  "statement": "Viết một hàm `deepMerge(target, source)` để gộp hai object lồng nhau. Nếu có key trùng nhau, giá trị từ `source` sẽ ghi đè `target`.",
+  "constraints": [
+    "Phải xử lý được các object lồng nhau sâu.",
+    "Không sử dụng `JSON.parse(JSON.stringify())`.",
+    "Chỉ xử lý Plain Object (không cần xử lý Date, RegExp, Map, Set)."
+  ],
+  "complexity": "Time: O(n) với n là tổng số keys. Space: O(d) với d là độ sâu của object.",
+  "codeLines": [
+    "function isObject(item: any): boolean {",
+    "  return item && typeof item === \"object\" && !Array.isArray(item);",
+    "}",
+    "",
+    "function deepMerge(target: any, source: any): any {",
+    "  let output = { ...target };",
+    "",
+    "  if (isObject(target) && isObject(source)) {",
+    "    Object.keys(source).forEach((key) => {",
+    "      if (isObject(source[key])) {",
+    "        if (!(key in target)) {",
+    "          Object.assign(output, { [key]: source[key] });",
+    "        } else {",
+    "          output[key] = deepMerge(target[key], source[key]);",
+    "        }",
+    "      } else {",
+    "        Object.assign(output, { [key]: source[key] });",
+    "      }",
+    "    });",
+    "  }",
+    "",
+    "  return output;",
+    "}",
+    "",
+    "// Example:",
+    "// deepMerge({ a: { b: 1 } }, { a: { c: 2 } }) => { a: { b: 1, c: 2 } }"
+  ],
+  "language": "typescript",
+  "commonMistakes": [
+    "Sử dụng Shallow Merge (`...`) cho các level sâu hơn, làm mất dữ liệu cũ.",
+    "Không kiểm tra `Array.isArray`, dẫn đến việc merge mảng như object."
+  ]
+}

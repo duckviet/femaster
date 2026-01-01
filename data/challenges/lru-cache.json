@@ -1,0 +1,51 @@
+{
+  "id": "lru-cache",
+  "title": "LRU Cache",
+  "domain": "performance-scalability",
+  "subcategory": "network-caching",
+  "difficulty": "Senior",
+  "statement": "Thiết kế và triển khai cấu trúc dữ liệu cho LRU Cache. Cache có dung lượng K. Khi cache đầy, phần tử ít được sử dụng nhất sẽ bị xóa.",
+  "constraints": [
+    "`get(key)`: Trả về giá trị nếu tồn tại, ngược lại trả về -1. Key này trở thành 'mới nhất'.",
+    "`put(key, value)`: Thêm hoặc cập nhật. Nếu đầy, xóa key cũ nhất.",
+    "Cả `get` và `put` phải đạt O(1)."
+  ],
+  "complexity": "Time: O(1) cho cả get và put.",
+  "codeLines": [
+    "class LRUCache {",
+    "  private capacity: number;",
+    "  private cache: Map<any, any>;",
+    "",
+    "  constructor(capacity: number) {",
+    "    this.capacity = capacity;",
+    "    this.cache = new Map();",
+    "  }",
+    "",
+    "  get(key: any) {",
+    "    if (!this.cache.has(key)) return -1;",
+    "",
+    "    const val = this.cache.get(key);",
+    "    this.cache.delete(key);",
+    "    this.cache.set(key, val);",
+    "    return val;",
+    "  }",
+    "",
+    "  put(key: any, value: any) {",
+    "    if (this.cache.has(key)) {",
+    "      this.cache.delete(key);",
+    "    }",
+    "    this.cache.set(key, value);",
+    "",
+    "    if (this.cache.size > this.capacity) {",
+    "      const oldestKey = this.cache.keys().next().value;",
+    "      this.cache.delete(oldestKey);",
+    "    }",
+    "  }",
+    "}"
+  ],
+  "language": "typescript",
+  "commonMistakes": [
+    "Sử dụng Object thường thay vì Map (Object không đảm bảo thứ tự key).",
+    "Quên cập nhật thứ tự khi gọi hàm `get`."
+  ]
+}
