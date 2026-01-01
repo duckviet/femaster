@@ -89,7 +89,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
+  --primary: oklch(0.87 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -123,4 +123,32 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Shiki Code Block Styles */
+.shiki-wrapper {
+  @apply text-sm;
+}
+
+.shiki-wrapper pre {
+  @apply p-4 overflow-x-auto;
+}
+
+.shiki-wrapper code {
+  @apply font-mono;
+}
+
+.shiki-wrapper .line {
+  @apply leading-relaxed;
+}
+
+/* Line numbers */
+.shiki-wrapper.line-numbers code {
+  counter-reset: line;
+}
+
+.shiki-wrapper.line-numbers .line::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply inline-block w-8 mr-4 text-right text-muted-foreground/50 select-none;
 }

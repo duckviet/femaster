@@ -39,6 +39,7 @@ import {
   UseDebounceDemo,
   VirtualListDemo,
 } from "@/components/challenge-demos";
+import { CodeBlock } from "@/components/ui/code-block";
 
 const domainIcons: Record<DomainCategory, React.ReactNode> = {
   "react-architecture": <IconBrandReact className="size-4" />,
@@ -369,15 +370,30 @@ export default function ChallengePage() {
                   <IconCode className="size-4" />
                   Solution Code
                 </div>
-                <Card className="p-0 overflow-hidden">
+                <Card className="p-0 overflow-hidden gap-0">
                   <div className="flex items-center justify-between px-4 py-2 bg-muted/50 border-b">
                     <span className="text-xs text-muted-foreground">
                       {currentChallenge.language}
                     </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleCopyCode}
+                    >
+                      {copied ? (
+                        <IconCheck className="size-4" />
+                      ) : (
+                        <IconCopy className="size-4" />
+                      )}
+                      {copied ? "Copied!" : "Copy"}
+                    </Button>
                   </div>
-                  <pre className="p-4 overflow-auto text-sm max-h-[350px] bg-background">
-                    <code>{currentChallenge.code}</code>
-                  </pre>
+                  <CodeBlock
+                    className="rounded-none"
+                    code={currentChallenge.code}
+                    language={currentChallenge.language || "tsx"}
+                    showLineNumbers
+                  />
                 </Card>
 
                 {/* Common Mistakes */}
