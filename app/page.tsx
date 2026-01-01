@@ -13,6 +13,7 @@ import {
   IconLayoutColumns,
   IconLayoutRows,
   IconTools,
+  IconX,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -334,7 +335,7 @@ export default function ChallengePage() {
                         key={i}
                         className="text-sm text-muted-foreground flex items-start gap-2"
                       >
-                        <span className="text-destructive">✗</span>
+                        <IconX className="size-4 text-destructive " />
                         {mistake}
                       </li>
                     ))}
