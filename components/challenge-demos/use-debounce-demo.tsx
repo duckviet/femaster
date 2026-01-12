@@ -81,7 +81,7 @@ export function UseDebounceDemo() {
         <span>Debounced: &quot;{debouncedSearch}&quot;</span>
       </div>
 
-      <div className="min-h-[120px] border rounded-md p-2">
+      <div className="min-h-30 border rounded-md p-2">
         {isSearching ? (
           <div className="text-sm text-muted-foreground animate-pulse">
             Searching...

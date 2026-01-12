@@ -81,7 +81,7 @@ export function ContentSplit({
         {DemoComponent ? (
           <DemoComponent />
         ) : (
-          <Card className="p-8 text-center text-muted-foreground h-[350px] flex flex-col items-center justify-center">
+          <Card className="p-8 text-center text-muted-foreground h-87.5 flex flex-col items-center justify-center">
             <IconCode className="size-12 mb-3 opacity-30" />
             <p className="text-sm">
               Live preview not available for this challenge.

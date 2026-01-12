@@ -1,6 +1,7 @@
 # Future Coding Challenges
 
 ## Overview
+
 Curated list of frontend coding challenges to add to FEMaster. Organized by domain, difficulty, and priority.
 
 ---
@@ -10,6 +11,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Design Patterns
 
 #### Higher-Order Component (HOC) Pattern
+
 - **Difficulty**: Mid
 - **Subcategory**: design-patterns
 - **Description**: Implement a `withAuth` HOC that adds authentication logic to components
@@ -18,6 +20,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Render Props Pattern
+
 - **Difficulty**: Mid
 - **Subcategory**: design-patterns
 - **Description**: Create a `MouseTracker` component using render props pattern
@@ -26,6 +29,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Controlled vs Uncontrolled Components
+
 - **Difficulty**: Mid
 - **Subcategory**: design-patterns
 - **Description**: Build a form library supporting both controlled and uncontrolled inputs
@@ -34,6 +38,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Portal Pattern
+
 - **Difficulty**: Mid
 - **Subcategory**: design-patterns
 - **Description**: Implement a Modal component using React portals
@@ -44,6 +49,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### State Management
 
 #### Undo/Redo System
+
 - **Difficulty**: Senior
 - **Subcategory**: state-management
 - **Description**: Implement undo/redo for a drawing canvas
@@ -52,6 +58,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Context API with useReducer
+
 - **Difficulty**: Mid
 - **Subcategory**: state-management
 - **Description**: Build a shopping cart with Context API and useReducer
@@ -60,6 +67,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Optimistic Updates
+
 - **Difficulty**: Senior
 - **Subcategory**: state-management
 - **Description**: Implement optimistic UI updates with rollback on error
@@ -68,6 +76,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### State Machine (XState-like)
+
 - **Difficulty**: Senior
 - **Subcategory**: state-management
 - **Description**: Implement a finite state machine for form wizard
@@ -78,6 +87,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Recursive UI
 
 #### File Explorer
+
 - **Difficulty**: Mid
 - **Subcategory**: recursive-ui
 - **Description**: Build a file/folder tree with expand/collapse
@@ -86,6 +96,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Drag-and-Drop Tree
+
 - **Difficulty**: Senior
 - **Subcategory**: recursive-ui
 - **Description**: Add drag-and-drop to nested tree structure
@@ -94,6 +105,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Nested Dropdown Menu
+
 - **Difficulty**: Mid
 - **Subcategory**: recursive-ui
 - **Description**: Create nested dropdown with keyboard navigation
@@ -108,6 +120,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Rendering Optimization
 
 #### React.memo and useMemo Strategy
+
 - **Difficulty**: Mid
 - **Subcategory**: rendering-optimization
 - **Description**: Optimize a slow list with proper memoization
@@ -116,6 +129,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Infinite Scroll
+
 - **Difficulty**: Mid
 - **Subcategory**: rendering-optimization
 - **Description**: Implement infinite scroll with pagination
@@ -124,6 +138,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Lazy Loading with Suspense
+
 - **Difficulty**: Mid
 - **Subcategory**: rendering-optimization
 - **Description**: Implement code splitting and lazy loading for routes
@@ -132,6 +147,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### React Server Components (RSC)
+
 - **Difficulty**: Senior
 - **Subcategory**: rendering-optimization
 - **Description**: Convert client components to RSC where appropriate
@@ -142,6 +158,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Network & Caching
 
 #### useThrottle Hook
+
 - **Difficulty**: Mid
 - **Subcategory**: network-caching
 - **Description**: Implement throttling for scroll/resize events
@@ -150,6 +167,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Request Deduplication
+
 - **Difficulty**: Senior
 - **Subcategory**: network-caching
 - **Description**: Deduplicate simultaneous identical API requests
@@ -158,6 +176,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Stale-While-Revalidate Pattern
+
 - **Difficulty**: Senior
 - **Subcategory**: network-caching
 - **Description**: Implement SWR pattern like React Query
@@ -166,6 +185,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Offline-First with Service Worker
+
 - **Difficulty**: Senior
 - **Subcategory**: network-caching
 - **Description**: Implement offline support with cache strategies
@@ -176,6 +196,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Offloading Computation
 
 #### Web Worker Pool
+
 - **Difficulty**: Senior
 - **Subcategory**: offloading-computation
 - **Description**: Create a pool of web workers for parallel tasks
@@ -184,6 +205,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### RequestIdleCallback Scheduling
+
 - **Difficulty**: Mid
 - **Subcategory**: offloading-computation
 - **Description**: Defer non-critical work using requestIdleCallback
@@ -192,6 +214,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Low
 
 #### Incremental Rendering
+
 - **Difficulty**: Senior
 - **Subcategory**: offloading-computation
 - **Description**: Break large render into chunks with scheduler
@@ -206,6 +229,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Data Structures
 
 #### Trie (Prefix Tree)
+
 - **Difficulty**: Senior
 - **Subcategory**: data-structures
 - **Description**: Implement autocomplete using Trie
@@ -214,6 +238,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Doubly Linked List
+
 - **Difficulty**: Mid
 - **Subcategory**: data-structures
 - **Description**: Implement doubly linked list with operations
@@ -222,6 +247,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Priority Queue (Min/Max Heap)
+
 - **Difficulty**: Senior
 - **Subcategory**: data-structures
 - **Description**: Implement priority queue for task scheduler
@@ -230,6 +256,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Graph Representation & BFS/DFS
+
 - **Difficulty**: Senior
 - **Subcategory**: data-structures
 - **Description**: Implement graph and traversal algorithms
@@ -240,6 +267,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Asynchronous Flow
 
 #### Promise.all/race/allSettled Polyfills
+
 - **Difficulty**: Mid
 - **Subcategory**: async-flow
 - **Description**: Implement Promise combinator methods
@@ -248,6 +276,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Async Queue with Concurrency Limit
+
 - **Difficulty**: Senior
 - **Subcategory**: async-flow
 - **Description**: Process async tasks with max N concurrent
@@ -256,6 +285,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Retry with Exponential Backoff
+
 - **Difficulty**: Mid
 - **Subcategory**: async-flow
 - **Description**: Implement retry logic with backoff strategy
@@ -264,6 +294,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### AbortController for Request Cancellation
+
 - **Difficulty**: Mid
 - **Subcategory**: async-flow
 - **Description**: Implement request cancellation with AbortController
@@ -274,6 +305,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Object & Logic
 
 #### Deep Clone
+
 - **Difficulty**: Mid
 - **Subcategory**: object-logic
 - **Description**: Implement deep clone handling circular references
@@ -282,6 +314,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Deep Equal
+
 - **Difficulty**: Mid
 - **Subcategory**: object-logic
 - **Description**: Implement deep equality comparison
@@ -290,6 +323,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Get/Set by Path (lodash.get/set)
+
 - **Difficulty**: Mid
 - **Subcategory**: object-logic
 - **Description**: Access nested properties with path string
@@ -298,6 +332,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Curry Function
+
 - **Difficulty**: Mid
 - **Subcategory**: object-logic
 - **Description**: Implement function currying with TypeScript types
@@ -306,6 +341,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Pipe/Compose Functions
+
 - **Difficulty**: Mid
 - **Subcategory**: object-logic
 - **Description**: Implement function composition utilities
@@ -320,6 +356,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### DOM Interaction
 
 #### useIntersectionObserver
+
 - **Difficulty**: Mid
 - **Subcategory**: dom-interaction
 - **Description**: Create hook for intersection detection
@@ -328,6 +365,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### useResizeObserver
+
 - **Difficulty**: Mid
 - **Subcategory**: dom-interaction
 - **Description**: Create hook for element resize detection
@@ -336,6 +374,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### useMutationObserver
+
 - **Difficulty**: Mid
 - **Subcategory**: dom-interaction
 - **Description**: Watch DOM changes with MutationObserver
@@ -344,6 +383,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Low
 
 #### useClickOutside
+
 - **Difficulty**: Mid
 - **Subcategory**: dom-interaction
 - **Description**: Detect clicks outside element
@@ -352,6 +392,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### useDragAndDrop
+
 - **Difficulty**: Senior
 - **Subcategory**: dom-interaction
 - **Description**: Generic drag-and-drop hook
@@ -362,6 +403,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Event Systems
 
 #### Event Emitter (Pub/Sub)
+
 - **Difficulty**: Mid
 - **Subcategory**: event-systems
 - **Description**: Implement EventEmitter class with TypeScript
@@ -370,6 +412,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: High
 
 #### Custom Event Bus
+
 - **Difficulty**: Mid
 - **Subcategory**: event-systems
 - **Description**: Create global event bus for React
@@ -378,6 +421,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Keyboard Shortcuts Manager
+
 - **Difficulty**: Mid
 - **Subcategory**: event-systems
 - **Description**: Implement keyboard shortcut system
@@ -386,6 +430,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Gesture Recognition
+
 - **Difficulty**: Senior
 - **Subcategory**: event-systems
 - **Description**: Detect swipe, pinch, rotate gestures
@@ -400,18 +445,21 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Architecture
 
 #### Micro-Frontend Communication
+
 - **Difficulty**: Senior
 - **Description**: Implement communication between micro-frontends
 - **Learning Goals**: Module federation, messaging, isolation
 - **Priority**: Low
 
 #### Design System Architecture
+
 - **Difficulty**: Senior
 - **Description**: Design and implement scalable component system
 - **Learning Goals**: Design tokens, theming, variants
 - **Priority**: Low
 
 #### Plugin System
+
 - **Difficulty**: Senior
 - **Description**: Create extensible plugin architecture
 - **Learning Goals**: Lifecycle hooks, dependency injection
@@ -420,6 +468,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Real-World Scenarios
 
 #### Form Builder
+
 - **Difficulty**: Senior
 - **Description**: Create drag-and-drop form builder
 - **Learning Goals**: Schema validation, dynamic rendering
@@ -427,6 +476,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Rich Text Editor
+
 - **Difficulty**: Senior
 - **Description**: Implement contenteditable-based editor
 - **Learning Goals**: Selection API, contenteditable, commands
@@ -434,6 +484,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Real-Time Collaboration
+
 - **Difficulty**: Senior
 - **Description**: Implement collaborative editing with OT/CRDT
 - **Learning Goals**: Operational transformation, WebSockets
@@ -441,6 +492,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Low
 
 #### Data Grid
+
 - **Difficulty**: Senior
 - **Description**: Build feature-rich data table
 - **Learning Goals**: Virtualization, sorting, filtering, grouping
@@ -454,12 +506,14 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ### Testing Patterns
 
 #### Custom Testing Library
+
 - **Difficulty**: Senior
 - **Description**: Build simplified testing framework
 - **Learning Goals**: Test runners, assertions, mocking
 - **Priority**: Low
 
 #### Mock Service Worker Setup
+
 - **Difficulty**: Mid
 - **Description**: Set up API mocking for tests
 - **Learning Goals**: MSW, test isolation, fixtures
@@ -470,6 +524,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ## 7. Accessibility Challenges
 
 #### Screen Reader Navigation
+
 - **Difficulty**: Mid
 - **Description**: Build accessible navigation with ARIA
 - **Learning Goals**: ARIA attributes, roles, keyboard nav
@@ -477,6 +532,7 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 - **Priority**: Medium
 
 #### Focus Management
+
 - **Difficulty**: Mid
 - **Description**: Implement focus trap for modals
 - **Learning Goals**: Focus management, tab order
@@ -488,35 +544,38 @@ Curated list of frontend coding challenges to add to FEMaster. Organized by doma
 ## Implementation Priority
 
 ### Phase 1 (Next 10 Challenges)
-1. Higher-Order Component (HOC) Pattern
-2. Render Props Pattern
-3. Portal Pattern (Modal)
-4. Undo/Redo System
-5. Context API with useReducer
-6. File Explorer
-7. React.memo and useMemo Strategy
-8. Infinite Scroll
-9. useThrottle Hook
-10. Stale-While-Revalidate Pattern
+
+1. Portal Pattern (Modal)
+2. Context API with useReducer
+3. Lazy Loading with Suspense
+4. useThrottle Hook
+5. Stale-While-Revalidate Pattern
+6. Trie (Autocomplete)
+7. Promise.all/race/allSettled
+8. Async Queue with Concurrency
+9. Retry with Exponential Backoff
+10. Deep Clone
 
 ### Phase 2 (Next 15 Challenges)
-11. Trie (Autocomplete)
-12. Promise.all/race/allSettled
-13. Async Queue with Concurrency
-14. Retry with Exponential Backoff
-15. Deep Clone
-16. Get/Set by Path
-17. useIntersectionObserver
-18. useResizeObserver
-19. useClickOutside
-20. useDragAndDrop
-21. Event Emitter
-22. Keyboard Shortcuts Manager
-23. Data Grid
-24. Form Builder
-25. Controlled vs Uncontrolled Components
+
+11. Get/Set by Path
+12. useIntersectionObserver
+13. useResizeObserver
+14. useClickOutside
+15. useDragAndDrop
+16. Event Emitter
+17. Keyboard Shortcuts Manager
+18. Data Grid
+19. Form Builder
+20. Controlled vs Uncontrolled Components
+21. Drag-and-Drop Tree
+22. Nested Dropdown Menu
+23. Request Deduplication
+24. Offline-First with Service Worker
+25. Web Worker Pool
 
 ### Phase 3 (Long-term)
+
 26-50. Remaining challenges based on user feedback and demand
 
 ---
@@ -547,6 +606,7 @@ When adding new challenges, use this structure:
 ## Contribution Guidelines
 
 ### Adding a New Challenge
+
 1. Choose appropriate domain and subcategory
 2. Write clear problem statement (bilingual if needed)
 3. Implement optimal solution with comments
@@ -557,6 +617,7 @@ When adding new challenges, use this structure:
 8. Submit for review
 
 ### Quality Checklist
+
 - [ ] Problem is clear and unambiguous
 - [ ] Solution is optimal and well-commented
 - [ ] Code follows project style guide
