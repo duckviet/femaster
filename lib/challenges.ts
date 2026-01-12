@@ -61,6 +61,8 @@ import longestSubstring from "@/data/challenges/longest-substring.json";
 import virtualList from "@/data/challenges/virtual-list.json";
 import webWorkerFilter from "@/data/challenges/web-worker-filter.json";
 import memoizeTtl from "@/data/challenges/memoize-ttl.json";
+import hocPattern from "@/data/challenges/hoc-pattern.json";
+import renderProps from "@/data/challenges/render-props.json";
 
 export const domainStructure: DomainInfo[] = [
   {
@@ -164,6 +166,8 @@ const rawChallenges: RawChallenge[] = [
   virtualList,
   webWorkerFilter,
   memoizeTtl,
+  hocPattern,
+  renderProps,
 ].map((challenge) => ({
   ...challenge,
   // JSON imports type domain/subcategory as string; narrow to our union types.
