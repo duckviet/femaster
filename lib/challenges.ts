@@ -63,6 +63,10 @@ import webWorkerFilter from "@/data/challenges/web-worker-filter.json";
 import memoizeTtl from "@/data/challenges/memoize-ttl.json";
 import hocPattern from "@/data/challenges/hoc-pattern.json";
 import renderProps from "@/data/challenges/render-props.json";
+import undoRedo from "@/data/challenges/undo-redo.json";
+import fileExplorer from "@/data/challenges/file-explorer.json";
+import reactMemoUsememo from "@/data/challenges/react-memo-usememo.json";
+import infiniteScroll from "@/data/challenges/infinite-scroll.json";
 
 export const domainStructure: DomainInfo[] = [
   {
@@ -168,6 +172,10 @@ const rawChallenges: RawChallenge[] = [
   memoizeTtl,
   hocPattern,
   renderProps,
+  undoRedo,
+  fileExplorer,
+  reactMemoUsememo,
+  infiniteScroll,
 ].map((challenge) => ({
   ...challenge,
   // JSON imports type domain/subcategory as string; narrow to our union types.

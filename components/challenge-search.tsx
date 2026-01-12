@@ -145,7 +145,7 @@ export function ChallengeSearch({
                 setDifficultyFilter(value as DifficultyFilter)
               }
             >
-              <SelectTrigger className="w-[140px] h-8">
+              <SelectTrigger className="w-35 h-8">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -159,7 +159,7 @@ export function ChallengeSearch({
               value={domainFilter}
               onValueChange={(value) => setDomainFilter(value as DomainFilter)}
             >
-              <SelectTrigger className="w-[200px] h-8">
+              <SelectTrigger className="w-50 h-8">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

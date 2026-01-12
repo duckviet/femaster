@@ -357,7 +357,7 @@ export function DemoName() {
 
 ## Implemented Demos
 
-### Completed (12/12) ✅
+### Completed (16/16) ✅
 
 All demos are now fully implemented with interactive visualizations:
 
@@ -373,6 +373,10 @@ All demos are now fully implemented with interactive visualizations:
 10. **Memoize TTL Demo** - Function caching with TTL expiration tracking
 11. **HOC Pattern Demo** ✨ - Higher-Order Component composition with auth and logging
 12. **Render Props Demo** ✨ - Mouse tracking with multiple render implementations
+13. **Undo/Redo Demo** ✨ - Drawing canvas with undo/redo history and time-travel
+14. **File Explorer Demo** ✨ - Recursive file/folder tree with expand/collapse
+15. **React.memo & useMemo Demo** ✨ - Performance comparison showing render optimization
+16. **Infinite Scroll Demo** ✨ - Lazy loading image gallery with Intersection Observer
 
 ---
 
@@ -380,48 +384,53 @@ All demos are now fully implemented with interactive visualizations:
 
 ### React & Component Architecture
 
-#### Undo/Redo Demo
+#### Portal Pattern Demo
+
+**Priority**: High
+**Features**:
+
+- Nested modals with backdrop
+- Click outside to close
+- Focus trap
+- Z-index management
+
+#### Context API with useReducer Demo
+
+**Priority**: High
+**Features**:
+
+- Shopping cart with items
+- Add/remove/update quantity
+- Global state management
+- TypeScript context setup
+
+#### Drag-and-Drop Tree Demo
+
+#### Drag-and-Drop Tree Demo
 
 **Priority**: Medium
 **Features**:
 
-- Drawing canvas
-- Undo/redo buttons with keyboard shortcuts
-- History stack visualization
-- Time-travel slider
-
-#### File Explorer Demo
-
-**Features**:
-
-- Expandable folder tree
-- Add/delete files/folders
-- Search functionality
-- Drag-and-drop (bonus)
+- Sortable nested lists
+- Drag items between levels
+- Drop zone highlights
+- Visual feedback
 
 ---
 
 ### Performance & Scalability
 
-#### Infinite Scroll Demo
+#### Lazy Loading with Suspense Demo
 
+**Priority**: Medium
 **Features**:
 
-- Image gallery with pagination
-- Scroll to load more
-- Loading skeleton states
-- Scroll position indicator
+- Code-split routes
+- Loading fallbacks
+- Error boundaries
+- Suspense integration
 
 #### useThrottle Demo
-
-**Features**:
-
-- Scroll position tracker
-- Throttled vs unthrottled comparison
-- Call frequency chart
-- Performance metrics
-
-#### SWR Pattern Demo
 
 **Features**:
 

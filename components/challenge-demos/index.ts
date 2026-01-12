@@ -10,3 +10,7 @@ export { LongestSubstringDemo } from "./longest-substring-demo";
 export { MemoizeTTLDemo } from "./memoize-ttl-demo";
 export { HOCPatternDemo } from "./hoc-pattern-demo";
 export { RenderPropsDemo } from "./render-props-demo";
+export { UndoRedoDemo } from "./undo-redo-demo";
+export { FileExplorerDemo } from "./file-explorer-demo";
+export { MemoStrategyDemo } from "./memo-strategy-demo";
+export { InfiniteScrollDemo } from "./infinite-scroll-demo";

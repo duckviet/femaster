@@ -11,6 +11,10 @@ import {
   MemoizeTTLDemo,
   HOCPatternDemo,
   RenderPropsDemo,
+  UndoRedoDemo,
+  FileExplorerDemo,
+  MemoStrategyDemo,
+  InfiniteScrollDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -26,6 +30,10 @@ export const demoRegistry = {
   MemoizeTTLDemo: MemoizeTTLDemo,
   HOCPatternDemo: HOCPatternDemo,
   RenderPropsDemo: RenderPropsDemo,
+  UndoRedoDemo: UndoRedoDemo,
+  FileExplorerDemo: FileExplorerDemo,
+  MemoStrategyDemo: MemoStrategyDemo,
+  InfiniteScrollDemo: InfiniteScrollDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;

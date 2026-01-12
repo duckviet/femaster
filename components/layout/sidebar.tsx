@@ -79,24 +79,34 @@ export function Sidebar({
                   {domain.subcategories.map((sub) => {
                     const subCount = getChallengesBySubcategory(sub.id).length;
                     const isActive = selectedSubcategory === sub.id;
+                    const isEmpty = subCount === 0;
 
                     return (
                       <button
                         key={sub.id}
-                        onClick={() => onSubcategoryChange(sub.id)}
+                        onClick={() => !isEmpty && onSubcategoryChange(sub.id)}
+                        disabled={isEmpty}
                         className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-xs transition-colors ${
-                          isActive
+                          isEmpty
+                            ? "text-muted-foreground/50 cursor-not-allowed"
+                            : isActive
                             ? "bg-primary/10 text-primary font-medium"
                             : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
                       >
                         <span className="flex-1 text-left">{sub.label}</span>
-                        <Badge
-                          variant={isActive ? "default" : "secondary"}
-                          className="text-[10px] h-5"
-                        >
-                          {subCount}
-                        </Badge>
+                        {isEmpty ? (
+                          <span className="text-[10px] text-muted-foreground/60 font-medium">
+                            Coming Soon
+                          </span>
+                        ) : (
+                          <Badge
+                            variant={isActive ? "default" : "secondary"}
+                            className="text-[10px] h-5"
+                          >
+                            {subCount}
+                          </Badge>
+                        )}
                       </button>
                     );
                   })}

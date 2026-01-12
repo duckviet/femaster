@@ -39,7 +39,7 @@ function MouseTracker({ children }: MouseTrackerProps) {
   return (
     <div
       ref={trackerRef}
-      className="relative w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-dashed border-blue-200 rounded-lg overflow-hidden cursor-crosshair"
+      className="relative w-full h-64 bg-linear-to-br from-blue-50 to-purple-50 border-2 border-dashed border-blue-200 rounded-lg overflow-hidden cursor-crosshair"
     >
       {children(position)}
     </div>

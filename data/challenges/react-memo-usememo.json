@@ -1,0 +1,28 @@
+{
+  "id": "react-memo-usememo",
+  "title": "React.memo and useMemo Strategy",
+  "domain": "react-architecture",
+  "subcategory": "rendering-optimization",
+  "difficulty": "Mid",
+  "statement": "Optimize a slow list component using React.memo and useMemo. This challenge teaches you how to identify and fix unnecessary re-renders, which is critical for application performance.\n\nYour task:\n1. Identify which components are re-rendering unnecessarily\n2. Apply React.memo to prevent re-renders of non-changing props\n3. Use useMemo to memoize expensive computations\n4. Use useCallback to maintain stable function references\n5. Measure and compare performance before/after optimization",
+  "constraints": [
+    "Must not wrap everything in React.memo indiscriminately",
+    "useMemo and useCallback should only be used where justified",
+    "Dependencies arrays must be correct (no infinite loops or stale values)",
+    "Must show measurable performance improvement",
+    "Must maintain exact same functionality before and after"
+  ],
+  "complexity": "Time: O(n) for rendering, O(1) for memoized computations, Space: O(n) for memoization cache",
+  "code": "// Unoptimized version\nfunction SlowList({ items }) {\n  const handleSort = () => items.sort((a, b) => a.value - b.value);\n  \n  return (\n    <div>\n      {items.map((item) => (\n        <ListItem key={item.id} item={item} onSort={handleSort} />\n      ))}\n    </div>\n  );\n}\n\n// Optimized version\nconst ListItem = React.memo(({ item, onSort }) => {\n  return <div onClick={onSort}>{item.name}</div>;\n});\n\nfunction OptimizedList({ items }) {\n  const handleSort = useCallback(() => {\n    return [...items].sort((a, b) => a.value - b.value);\n  }, [items]);\n\n  const sortedItems = useMemo(() => {\n    return [...items].sort((a, b) => a.value - b.value);\n  }, [items]);\n\n  return (\n    <div>\n      {sortedItems.map((item) => (\n        <ListItem key={item.id} item={item} onSort={handleSort} />\n      ))}\n    </div>\n  );\n}\n\n// Key principles:\n// 1. React.memo prevents re-render if props didn't change\n// 2. useCallback maintains stable function reference across renders\n// 3. useMemo caches expensive computations\n// 4. All three require proper dependency arrays\n// 5. Use React DevTools Profiler to measure impact\n// 6. Profile before optimizing - don't optimize prematurely",
+  "language": "tsx",
+  "commonMistakes": [
+    "Using React.memo on every component without measuring first",
+    "Missing dependencies in useMemo/useCallback causing stale values",
+    "Including too many dependencies causing constant recomputation",
+    "Not using useCallback with React.memo children (defeats the purpose)",
+    "Memoizing cheap computations (overhead > benefit)",
+    "Creating new object/function props inside render without memoization",
+    "Assuming React.memo alone solves performance issues"
+  ],
+  "demoComponentKey": "MemoStrategyDemo"
+}
