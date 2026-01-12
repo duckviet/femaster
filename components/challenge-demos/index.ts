@@ -1,3 +1,10 @@
 export { NestedCommentsDemo } from "./nested-comments-demo";
 export { UseDebounceDemo } from "./use-debounce-demo";
 export { VirtualListDemo } from "./virtual-list-demo";
+export { CompoundTabsDemo } from "./compound-tabs-demo";
+export { LRUCacheDemo } from "./lru-cache-demo";
+export { WebWorkerFilterDemo } from "./web-worker-filter-demo";
+export { DeepMergeDemo } from "./deep-merge-demo";
+export { FlatToTreeDemo } from "./flat-to-tree-demo";
+export { LongestSubstringDemo } from "./longest-substring-demo";
+export { MemoizeTTLDemo } from "./memoize-ttl-demo";

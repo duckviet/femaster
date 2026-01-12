@@ -47,5 +47,6 @@
   "commonMistakes": [
     "Sử dụng Object thường thay vì Map (Object không đảm bảo thứ tự key).",
     "Quên cập nhật thứ tự khi gọi hàm `get`."
-  ]
+  ],
+  "demoComponentKey": "LRUCacheDemo"
 }
