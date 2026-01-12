@@ -1,0 +1,62 @@
+{
+  "id": "render-props",
+  "title": "Render Props Pattern",
+  "domain": "react-architecture",
+  "subcategory": "design-patterns",
+  "difficulty": "Mid",
+  "demoComponentKey": "RenderPropsDemo",
+  "statement": "Implement Render Props pattern để share logic giữa các component. Thay vì sử dụng HOC, component sẽ nhận một function `children` hoặc `render` prop để quyết định cách render UI.",
+  "constraints": [
+    "Component phải nhận một function prop (children hoặc render) và gọi nó với state/methods.",
+    "Function prop phải có thể render bất kỳ UI nào, không bị ràng buộc.",
+    "Logic phải hoàn toàn separate khỏi presentation.",
+    "Performance phải tốt (tránh re-render không cần thiết của children)."
+  ],
+  "complexity": "Time: O(1) để call render function, Space: O(1) - không tạo wrapper",
+  "codeLines": [
+    "interface MouseTrackerProps {",
+    "  children: (position: { x: number; y: number }) => React.ReactNode;",
+    "}",
+    "",
+    "function MouseTracker({ children }: MouseTrackerProps) {",
+    "  const [position, setPosition] = useState({ x: 0, y: 0 });",
+    "",
+    "  useEffect(() => {",
+    "    const handleMouseMove = (e: MouseEvent) => {",
+    "      setPosition({ x: e.clientX, y: e.clientY });",
+    "    };",
+    "    window.addEventListener('mousemove', handleMouseMove);",
+    "    return () => window.removeEventListener('mousemove', handleMouseMove);",
+    "  }, []);",
+    "",
+    "  return <div>{children(position)}</div>;",
+    "}",
+    "",
+    "// Usage",
+    "<MouseTracker>",
+    "  {(position) => (",
+    "    <div>",
+    "      Mouse at X: {position.x}, Y: {position.y}",
+    "    </div>",
+    "  )}",
+    "</MouseTracker>"
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Tạo function mới bên trong render - sẽ re-render children mỗi lần. Sử dụng useCallback.",
+    "Quên memo children component - khiến mất performance benefit.",
+    "Truyền arrow function inline thay vì reference - cũng tạo instance mới.",
+    "Không handling loading/error states trong render function.",
+    "Quên update render function dependencies - khiến stale closure."
+  ],
+  "tips": [
+    "Render Props rất linh hoạt - cho phép multiple render implementations.",
+    "Dễ dàng debug hơn HOC vì cấu trúc component rõ ràng hơn.",
+    "Kết hợp với React.memo để optimize performance.",
+    "Custom Hooks là modern alternative nhưng Render Props vẫn rất hữu dụng cho shared UI logic."
+  ],
+  "references": [
+    "https://react.dev/learn/render-props",
+    "https://react.dev/reference/react/Children"
+  ]
+}

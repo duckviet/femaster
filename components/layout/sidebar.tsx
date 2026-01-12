@@ -108,9 +108,7 @@ export function Sidebar({
       </nav>
 
       <div className="p-3 border-t">
-        <p className="text-xs text-muted-foreground text-center">
-          Mid → Senior Level
-        </p>
+        <p className="text-xs text-muted-foreground text-center">@</p>
       </div>
     </aside>
   );

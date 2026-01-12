@@ -8,3 +8,5 @@ export { DeepMergeDemo } from "./deep-merge-demo";
 export { FlatToTreeDemo } from "./flat-to-tree-demo";
 export { LongestSubstringDemo } from "./longest-substring-demo";
 export { MemoizeTTLDemo } from "./memoize-ttl-demo";
+export { HOCPatternDemo } from "./hoc-pattern-demo";
+export { RenderPropsDemo } from "./render-props-demo";

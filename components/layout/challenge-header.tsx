@@ -6,6 +6,7 @@ import {
   IconChevronRight,
   IconLayoutColumns,
   IconLayoutRows,
+  IconSearch,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Challenge } from "@/lib/challenges";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface ChallengeHeaderProps {
   currentChallenge: Challenge;
@@ -27,6 +29,7 @@ interface ChallengeHeaderProps {
   onChallengeChange: (id: string) => void;
   onCopyCode: () => void;
   onViewModeChange: (mode: "tabs" | "split") => void;
+  onOpenSearch?: () => void;
 }
 
 export function ChallengeHeader({
@@ -38,6 +41,7 @@ export function ChallengeHeader({
   onChallengeChange,
   onCopyCode,
   onViewModeChange,
+  onOpenSearch,
 }: ChallengeHeaderProps) {
   return (
     <header className="border-b p-4 flex items-center gap-4">
@@ -64,6 +68,21 @@ export function ChallengeHeader({
 
       <div className="flex-1" />
 
+      {onOpenSearch && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onOpenSearch}
+          className="gap-2"
+        >
+          <IconSearch className="size-4" />
+          Search
+          <kbd className="ml-1 px-1.5 py-0.5 text-[10px] font-mono bg-muted border rounded">
+            ⌘K
+          </kbd>
+        </Button>
+      )}
+
       <div className="flex items-center gap-1 border rounded-md p-0.5">
         <Button
           variant={viewMode === "tabs" ? "secondary" : "ghost"}
@@ -82,6 +101,8 @@ export function ChallengeHeader({
           <IconLayoutColumns className="size-4" />
         </Button>
       </div>
+
+      <ThemeToggle />
 
       <Button variant="outline" size="sm" onClick={onCopyCode}>
         {copied ? (

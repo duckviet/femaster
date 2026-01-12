@@ -1,0 +1,67 @@
+{
+  "id": "hoc-pattern",
+  "title": "Higher-Order Component (HOC) Pattern",
+  "domain": "react-architecture",
+  "subcategory": "design-patterns",
+  "difficulty": "Senior",
+  "demoComponentKey": "HOCPatternDemo",
+  "statement": "Tạo một Higher-Order Component để wrap component và inject thêm props hoặc logic. HOC là function nhận vào một component và trả về một component mới có chức năng được enhance.",
+  "constraints": [
+    "HOC phải là pure function không có side effects.",
+    "Phải preserve static methods của component gốc (sử dụng hoist-non-react-statics).",
+    "Tránh sử dụng HOC trong render method của component khác (sẽ tạo component mới mỗi lần render).",
+    "HOC phải preserve displayName để debug dễ hơn."
+  ],
+  "complexity": "Time: O(1) (wrap time), Space: O(1) - chỉ thêm một layer component",
+  "codeLines": [
+    "// HOC: withAuthentication",
+    "function withAuthentication<P extends object>(",
+    "  Component: React.ComponentType<P & { isAuthenticated: boolean }>",
+    ") {",
+    "  return function AuthenticatedComponent(props: Omit<P, 'isAuthenticated'>) {",
+    "    const isAuthenticated = useAuth(); // Simulate getting auth state",
+    "    return <Component {...(props as P)} isAuthenticated={isAuthenticated} />;",
+    "  };",
+    "}",
+    "",
+    "// HOC: withLogger",
+    "function withLogger<P extends object>(Component: React.ComponentType<P>) {",
+    "  return function LoggedComponent(props: P) {",
+    "    useEffect(() => {",
+    "      console.log(`${Component.displayName || 'Component'} mounted`);",
+    "      return () => {",
+    "        console.log(`${Component.displayName || 'Component'} unmounted`);",
+    "      };",
+    "    }, []);",
+    "",
+    "    return <Component {...props} />;",
+    "  };",
+    "}",
+    "",
+    "// Composing multiple HOCs",
+    "const EnhancedComponent = withLogger(",
+    "  withAuthentication(BaseComponent)",
+    ");",
+    "",
+    "// Usage",
+    "<EnhancedComponent someProps={value} />"
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Không preserve display name - khiến debugging khó khăn (sử dụng hoistNonReactStatics).",
+    "Tạo HOC bên trong render - tạo instance mới mỗi lần, làm mất state.",
+    "Không copy static methods từ component gốc sang component mới.",
+    "Quên truyền forwarded refs đến component được wrap (dùng forwardRef).",
+    "Tạo wrapper vô tận khi compose nhiều HOCs - cân nhắc dùng hooks hoặc context thay vì."
+  ],
+  "tips": [
+    "Nếu chỉ muốn share logic, hãy dùng Custom Hooks thay vì HOC.",
+    "HOC rất tốt cho cross-cutting concerns (logging, authentication, theme).",
+    "Luôn wrap displayName bằng function.displayName để debug dễ hơn.",
+    "Sử dụng TypeScript generics để type-safe HOC composition."
+  ],
+  "references": [
+    "https://react.dev/reference/react/createElement#alternatives",
+    "https://react.dev/learn/passing-data-deeply-with-context"
+  ]
+}

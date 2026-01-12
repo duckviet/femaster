@@ -9,6 +9,8 @@ import {
   FlatToTreeDemo,
   LongestSubstringDemo,
   MemoizeTTLDemo,
+  HOCPatternDemo,
+  RenderPropsDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -22,6 +24,8 @@ export const demoRegistry = {
   FlatToTreeDemo: FlatToTreeDemo,
   LongestSubstringDemo: LongestSubstringDemo,
   MemoizeTTLDemo: MemoizeTTLDemo,
+  HOCPatternDemo: HOCPatternDemo,
+  RenderPropsDemo: RenderPropsDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;
