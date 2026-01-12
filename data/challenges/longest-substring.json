@@ -36,5 +36,6 @@
   "commonMistakes": [
     "Sử dụng 2 vòng lặp lồng nhau (O(n²)).",
     "Khi cập nhật `start`, không dùng `Math.max`, dẫn đến việc `start` có thể nhảy ngược."
-  ]
+  ],
+  "demoComponentKey": "LongestSubstringDemo"
 }

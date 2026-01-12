@@ -46,5 +46,6 @@
   "commonMistakes": [
     "Sử dụng đệ quy kết hợp `.filter()` bên trong mỗi vòng lặp, dẫn đến O(n²).",
     "Không xử lý được trường hợp `parentId` trỏ đến một `id` không tồn tại."
-  ]
+  ],
+  "demoComponentKey": "FlatToTreeDemo"
 }

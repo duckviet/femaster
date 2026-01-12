@@ -50,5 +50,5 @@
     "Truyền `activeIndex` xuống từng con thông qua `React.Children.map`.",
     "Không sử dụng Context API khiến việc mở rộng cấu trúc DOM bên trong trở nên khó khăn."
   ],
-  "demoComponentKey": "compound-tabs"
+  "demoComponentKey": "CompoundTabsDemo"
 }

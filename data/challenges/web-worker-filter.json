@@ -47,5 +47,6 @@
     "Khởi tạo Worker mới bên trong hàm `handleSearch` (gây quá tải).",
     "Không xử lý cleanup worker khi component bị hủy.",
     "Không dùng Debounce trước khi gửi message sang Worker."
-  ]
+  ],
+  "demoComponentKey": "WebWorkerFilterDemo"
 }

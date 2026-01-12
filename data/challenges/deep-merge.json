@@ -43,5 +43,6 @@
   "commonMistakes": [
     "Sử dụng Shallow Merge (`...`) cho các level sâu hơn, làm mất dữ liệu cũ.",
     "Không kiểm tra `Array.isArray`, dẫn đến việc merge mảng như object."
-  ]
+  ],
+  "demoComponentKey": "DeepMergeDemo"
 }
