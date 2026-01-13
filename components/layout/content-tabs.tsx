@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Challenge } from "@/lib/challenges";
 import { CodeBlock } from "../ui/code-block";
+import { Suspense } from "react";
 
 interface ContentTabsProps {
   challenge: Challenge;
@@ -52,12 +53,26 @@ export function ContentTabs({
               {copied ? "Copied!" : "Copy"}
             </Button>
           </div>
-          <CodeBlock
-            className="rounded-none"
-            code={challenge.code}
-            language={challenge.language || "tsx"}
-            showLineNumbers
-          />
+          <Suspense
+            fallback={
+              <div className="rounded-none bg-[#24292e] p-4 animate-pulse">
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-700/50 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-700/50 rounded w-full"></div>
+                  <div className="h-4 bg-gray-700/50 rounded w-5/6"></div>
+                  <div className="h-4 bg-gray-700/50 rounded w-full"></div>
+                  <div className="h-4 bg-gray-700/50 rounded w-2/3"></div>
+                </div>
+              </div>
+            }
+          >
+            <CodeBlock
+              className="rounded-none"
+              code={challenge.code}
+              language={challenge.language || "tsx"}
+              showLineNumbers
+            />
+          </Suspense>
         </Card>
 
         {/* Common Mistakes */}

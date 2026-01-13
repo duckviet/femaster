@@ -38,10 +38,8 @@ export function ChallengesLayoutInner({
   ]);
   const [selectedSubcategory, setSelectedSubcategory] =
     useState<SkillSubcategory>(challenge.subcategory);
-  const [viewMode, setViewModeState] = useState<"tabs" | "split">("tabs");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const { setShowDemo } = useChallenge();
+  const { setShowDemo, viewMode, setViewMode, copied } = useChallenge();
 
   // Load view mode from localStorage on mount
   useEffect(() => {
@@ -50,14 +48,9 @@ export function ChallengesLayoutInner({
       | "split"
       | null;
     if (savedViewMode) {
-      setViewModeState(savedViewMode);
+      setViewMode(savedViewMode);
     }
-  }, []);
-
-  const setViewMode = useCallback((mode: "tabs" | "split") => {
-    setViewModeState(mode);
-    localStorage.setItem("viewMode", mode);
-  }, []);
+  }, [setViewMode]);
 
   const filteredChallenges = getChallengesBySubcategory(selectedSubcategory);
 
@@ -76,12 +69,6 @@ export function ChallengesLayoutInner({
       router.push(`/challenges/${firstInSubcategory.id}`);
     }
   };
-
-  const handleCopyCode = useCallback(async () => {
-    await navigator.clipboard.writeText(challenge.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [challenge.code, setCopied]);
 
   const handleNextChallenge = () => {
     if (nextSlug) {
@@ -165,14 +152,16 @@ export function ChallengesLayoutInner({
           filteredChallenges={filteredChallenges}
           selectedChallengeId={challenge.id}
           viewMode={viewMode}
-          copied={copied}
+          copied={false}
           onChallengeChange={(id) => {
             const c = challenges.find((ch) => ch.id === id);
             if (c) {
               router.push(`/challenges/${c.id}`);
             }
           }}
-          onCopyCode={handleCopyCode}
+          onCopyCode={async () => {
+            await navigator.clipboard.writeText(challenge.code);
+          }}
           onViewModeChange={setViewMode}
           onOpenSearch={() => setSearchOpen(true)}
         />
