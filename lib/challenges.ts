@@ -36,6 +36,13 @@ export interface Challenge {
   language: "tsx" | "typescript" | "javascript";
   commonMistakes: string[];
   demoComponentKey?: string;
+  practicable?: boolean;
+  functionName?: string;
+  testCases?: Array<{
+    name: string;
+    args: any[];
+    expected: any;
+  }>;
 }
 
 export interface SubcategoryInfo {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useRef } from "react";
 import type { Challenge } from "@/lib/challenges";
 
 interface ChallengeContextType {
@@ -16,6 +16,7 @@ interface ChallengeContextType {
   setShowDemo: (show: boolean) => void;
   viewMode: "tabs" | "split";
   setViewMode: (mode: "tabs" | "split") => void;
+  handleCopyCode: () => void;
 }
 
 const ChallengeContext = createContext<ChallengeContextType | undefined>(
@@ -58,7 +59,19 @@ export function ChallengeProvider({
       setViewModeState(savedViewMode);
     }
   }, []);
+  const copyTimeoutRef = useRef<number | null>(null);
 
+  const handleCopyCode = async () => {
+    await navigator.clipboard.writeText(challenge.code);
+    setCopied(true);
+    if (copyTimeoutRef.current) {
+      clearTimeout(copyTimeoutRef.current);
+    }
+    copyTimeoutRef.current = window.setTimeout(() => {
+      setCopied(false);
+      copyTimeoutRef.current = null;
+    }, 1500);
+  };
   return (
     <ChallengeContext.Provider
       value={{
@@ -74,6 +87,7 @@ export function ChallengeProvider({
         setShowDemo,
         viewMode,
         setViewMode,
+        handleCopyCode,
       }}
     >
       {children}

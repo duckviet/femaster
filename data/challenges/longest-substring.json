@@ -37,5 +37,34 @@
     "Sử dụng 2 vòng lặp lồng nhau (O(n²)).",
     "Khi cập nhật `start`, không dùng `Math.max`, dẫn đến việc `start` có thể nhảy ngược."
   ],
-  "demoComponentKey": "LongestSubstringDemo"
+  "demoComponentKey": "LongestSubstringDemo",
+  "practicable": true,
+  "functionName": "lengthOfLongestSubstring",
+  "testCases": [
+    {
+      "name": "Basic test with repeating chars",
+      "args": ["abcabcbb"],
+      "expected": 3
+    },
+    {
+      "name": "All same characters",
+      "args": ["bbbbb"],
+      "expected": 1
+    },
+    {
+      "name": "Mixed characters",
+      "args": ["pwwkew"],
+      "expected": 3
+    },
+    {
+      "name": "Empty string",
+      "args": [""],
+      "expected": 0
+    },
+    {
+      "name": "All unique characters",
+      "args": ["abcdef"],
+      "expected": 6
+    }
+  ]
 }

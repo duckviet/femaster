@@ -44,5 +44,14 @@
     "Sử dụng `JSON.stringify` làm key có thể gây lỗi với circular reference.",
     "Không handle `async/await`, dẫn đến việc cache trả về Promise bị treo."
   ],
-  "demoComponentKey": "MemoizeTTLDemo"
+  "demoComponentKey": "MemoizeTTLDemo",
+  "practicable": true,
+  "functionName": "memoizeWithTTL",
+  "testCases": [
+    {
+      "name": "Cache works within TTL",
+      "args": [],
+      "expected": "Test requires async timing - see demo"
+    }
+  ]
 }

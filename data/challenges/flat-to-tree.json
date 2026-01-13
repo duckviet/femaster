@@ -47,5 +47,43 @@
     "Sử dụng đệ quy kết hợp `.filter()` bên trong mỗi vòng lặp, dẫn đến O(n²).",
     "Không xử lý được trường hợp `parentId` trỏ đến một `id` không tồn tại."
   ],
-  "demoComponentKey": "FlatToTreeDemo"
+  "demoComponentKey": "FlatToTreeDemo",
+  "practicable": true,
+  "functionName": "convertToTree",
+  "testCases": [
+    {
+      "name": "Basic tree structure",
+      "args": [
+        [
+          { "id": 1, "parentId": null, "name": "Root" },
+          { "id": 2, "parentId": 1, "name": "Child 1" },
+          { "id": 3, "parentId": 1, "name": "Child 2" }
+        ]
+      ],
+      "expected": [
+        {
+          "id": 1,
+          "parentId": null,
+          "name": "Root",
+          "children": [
+            { "id": 2, "parentId": 1, "name": "Child 1", "children": [] },
+            { "id": 3, "parentId": 1, "name": "Child 2", "children": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Multiple roots",
+      "args": [
+        [
+          { "id": 1, "parentId": null, "name": "Root 1" },
+          { "id": 2, "parentId": null, "name": "Root 2" }
+        ]
+      ],
+      "expected": [
+        { "id": 1, "parentId": null, "name": "Root 1", "children": [] },
+        { "id": 2, "parentId": null, "name": "Root 2", "children": [] }
+      ]
+    }
+  ]
 }
