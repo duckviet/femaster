@@ -12,6 +12,8 @@ interface ChallengeContextType {
   prevSlug?: string;
   copied: boolean;
   setCopied: (copied: boolean) => void;
+  showDemo: boolean;
+  setShowDemo: (show: boolean) => void;
 }
 
 const ChallengeContext = createContext<ChallengeContextType | undefined>(
@@ -36,6 +38,7 @@ export function ChallengeProvider({
   prevSlug?: string;
 }) {
   const [copied, setCopied] = React.useState(false);
+  const [showDemo, setShowDemo] = React.useState(false);
 
   return (
     <ChallengeContext.Provider
@@ -48,6 +51,8 @@ export function ChallengeProvider({
         prevSlug,
         copied,
         setCopied,
+        showDemo,
+        setShowDemo,
       }}
     >
       {children}

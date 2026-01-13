@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ProblemStatement,
   ContentTabs,
@@ -8,6 +8,7 @@ import {
 } from "@/components/layout";
 import { getDemoComponent } from "@/lib/demo-registry";
 import type { Challenge } from "@/lib/challenges";
+import { useChallenge } from "@/app/challenges/challenge-context";
 import { motion } from "framer-motion";
 
 interface ChallengeClientProps {
@@ -15,9 +16,8 @@ interface ChallengeClientProps {
 }
 
 export default function ChallengeClient({ challenge }: ChallengeClientProps) {
-  const [showDemo, setShowDemo] = useState(false);
-  const [viewMode, setViewMode] = useState<"tabs" | "split">("tabs");
-  const [copied, setCopied] = useState(false);
+  const { showDemo, setShowDemo, copied } = useChallenge();
+  const [viewMode, setViewMode] = React.useState<"tabs" | "split">("tabs");
 
   // Load view mode from localStorage on mount
   useEffect(() => {
@@ -32,8 +32,6 @@ export default function ChallengeClient({ challenge }: ChallengeClientProps) {
 
   const handleCopyCode = async () => {
     await navigator.clipboard.writeText(challenge.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   const DemoComponent = showDemo
@@ -43,7 +41,7 @@ export default function ChallengeClient({ challenge }: ChallengeClientProps) {
   // Reset demo visibility when challenge changes
   useEffect(() => {
     setShowDemo(false);
-  }, [challenge.id]);
+  }, [challenge.id, setShowDemo]);
 
   return (
     <motion.div
