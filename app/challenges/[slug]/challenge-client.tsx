@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ProblemStatement,
   ContentTabs,
@@ -18,13 +18,10 @@ interface ChallengeClientProps {
 }
 
 export default function ChallengeClient({ challenge }: ChallengeClientProps) {
-  const { showDemo, setShowDemo, copied, viewMode } = useChallenge();
+  const { showDemo, setShowDemo, copied, viewMode, handleCopyCode } =
+    useChallenge();
   const [activeTab, setActiveTab] = useState("solution");
   const [mounted, setMounted] = useState(false);
-
-  const handleCopyCode = async () => {
-    await navigator.clipboard.writeText(challenge.code);
-  };
 
   const DemoComponent = showDemo
     ? getDemoComponent(challenge.demoComponentKey)
@@ -39,31 +36,9 @@ export default function ChallengeClient({ challenge }: ChallengeClientProps) {
     setMounted(true);
   }, []);
 
-  // Sample test cases (per-challenge)
-  const { functionName, sampleTestCases } = (() => {
-    if (challenge.id === "deep-merge") {
-      return {
-        functionName: "deepMerge",
-        sampleTestCases: [
-          {
-            name: "Merge nested objects",
-            args: [{ a: { b: 1 } }, { a: { c: 2 } }],
-            expected: { a: { b: 1, c: 2 } },
-          },
-        ] as Array<{ name: string; args: any[]; expected: any }>,
-      };
-    }
-
-    // Default: no tests until defined
-    return {
-      functionName: undefined,
-      sampleTestCases: [] as Array<{
-        name: string;
-        args: any[];
-        expected: any;
-      }>,
-    };
-  })();
+  // Use test cases from challenge data or empty array
+  const functionName = challenge.functionName;
+  const sampleTestCases = challenge.testCases || [];
 
   return (
     <motion.div
@@ -103,11 +78,21 @@ export default function ChallengeClient({ challenge }: ChallengeClientProps) {
 
         <TabsContent value="practice">
           {mounted ? (
-            <CodeEditor
-              challenge={challenge}
-              testCases={sampleTestCases}
-              functionName={functionName}
-            />
+            <>
+              {challenge?.practicable ? (
+                <CodeEditor
+                  challenge={challenge}
+                  testCases={sampleTestCases}
+                  functionName={functionName}
+                />
+              ) : (
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Practice Unavailable
+                  </h3>
+                </div>
+              )}
+            </>
           ) : null}
         </TabsContent>
       </Tabs>

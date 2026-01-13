@@ -44,5 +44,24 @@
     "Sử dụng Shallow Merge (`...`) cho các level sâu hơn, làm mất dữ liệu cũ.",
     "Không kiểm tra `Array.isArray`, dẫn đến việc merge mảng như object."
   ],
-  "demoComponentKey": "DeepMergeDemo"
+  "demoComponentKey": "DeepMergeDemo",
+  "practicable": true,
+  "functionName": "deepMerge",
+  "testCases": [
+    {
+      "name": "Merge nested objects",
+      "args": [{ "a": { "b": 1 } }, { "a": { "c": 2 } }],
+      "expected": { "a": { "b": 1, "c": 2 } }
+    },
+    {
+      "name": "Merge with new keys",
+      "args": [{ "x": 1 }, { "y": 2, "z": 3 }],
+      "expected": { "x": 1, "y": 2, "z": 3 }
+    },
+    {
+      "name": "Deep nested merge",
+      "args": [{ "a": { "b": { "c": 1 } } }, { "a": { "b": { "d": 2 } } }],
+      "expected": { "a": { "b": { "c": 1, "d": 2 } } }
+    }
+  ]
 }

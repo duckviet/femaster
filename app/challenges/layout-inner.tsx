@@ -39,7 +39,8 @@ export function ChallengesLayoutInner({
   const [selectedSubcategory, setSelectedSubcategory] =
     useState<SkillSubcategory>(challenge.subcategory);
   const [searchOpen, setSearchOpen] = useState(false);
-  const { setShowDemo, viewMode, setViewMode, copied } = useChallenge();
+  const { setShowDemo, viewMode, setViewMode, copied, handleCopyCode } =
+    useChallenge();
 
   // Load view mode from localStorage on mount
   useEffect(() => {
@@ -152,16 +153,14 @@ export function ChallengesLayoutInner({
           filteredChallenges={filteredChallenges}
           selectedChallengeId={challenge.id}
           viewMode={viewMode}
-          copied={false}
+          copied={copied}
           onChallengeChange={(id) => {
             const c = challenges.find((ch) => ch.id === id);
             if (c) {
               router.push(`/challenges/${c.id}`);
             }
           }}
-          onCopyCode={async () => {
-            await navigator.clipboard.writeText(challenge.code);
-          }}
+          onCopyCode={handleCopyCode}
           onViewModeChange={setViewMode}
           onOpenSearch={() => setSearchOpen(true)}
         />

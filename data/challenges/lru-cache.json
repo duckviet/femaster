@@ -48,5 +48,14 @@
     "Sử dụng Object thường thay vì Map (Object không đảm bảo thứ tự key).",
     "Quên cập nhật thứ tự khi gọi hàm `get`."
   ],
-  "demoComponentKey": "LRUCacheDemo"
+  "demoComponentKey": "LRUCacheDemo",
+  "practicable": true,
+  "functionName": "LRUCache",
+  "testCases": [
+    {
+      "name": "Basic cache operations",
+      "args": [],
+      "expected": "Test requires instance methods - see demo"
+    }
+  ]
 }
