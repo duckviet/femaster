@@ -236,3 +236,11 @@ export function getDomainBySubcategory(
     d.subcategories.some((s) => s.id === subcategory)
   );
 }
+
+export function getChallengeBySlug(slug: string): Challenge | undefined {
+  return challenges.find((c) => c.id === slug);
+}
+
+export function getAllChallengeSlugs(): string[] {
+  return challenges.map((c) => c.id);
+}
