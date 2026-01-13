@@ -1,86 +1,112 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-type Theme = "light" | "dark" | "system";
+export type Theme = "light" | "dark" | "system";
 
-interface ThemeContextType {
+interface ThemeStore {
   theme: Theme;
+  hasHydrated: boolean;
   setTheme: (theme: Theme) => void;
-  actualTheme: "light" | "dark";
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const STORAGE_KEY = "femaster-theme";
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [actualTheme, setActualTheme] = useState<"light" | "dark">("light");
+const getSystemTheme = (): "light" | "dark" =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 
-  useEffect(() => {
-    // Load theme from localStorage on mount
-    const stored = localStorage.getItem("theme") as Theme;
-    if (stored) {
-      setThemeState(stored);
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
+      theme: "system",
+      hasHydrated: false,
+      setTheme: (theme) => set({ theme, hasHydrated: true }),
+    }),
+    {
+      name: STORAGE_KEY,
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ theme: state.theme }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.hasHydrated = true;
+        }
+      },
     }
-  }, []);
+  )
+);
 
-  useEffect(() => {
-    const root = window.document.documentElement;
+export function useTheme() {
+  const theme = useThemeStore((state) => state.theme);
+  const setTheme = useThemeStore((state) => state.setTheme);
+  const hasHydrated = useThemeStore((state) => state.hasHydrated);
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 
-    // Determine actual theme based on preference
-    let resolved: "light" | "dark" = "light";
+  // Apply theme to DOM and listen for system preference changes
+  useLayoutEffect(() => {
+    const nextResolved = theme === "system" ? getSystemTheme() : theme;
+    setResolvedTheme(nextResolved);
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      resolved = systemTheme;
-    } else {
-      resolved = theme;
-    }
-
-    // Apply theme to root element
+    const root = document.documentElement;
     root.classList.remove("light", "dark");
-    root.classList.add(resolved);
-    setActualTheme(resolved);
-
-    // Store in localStorage
-    localStorage.setItem("theme", theme);
+    root.classList.add(nextResolved);
   }, [theme]);
 
-  // Listen for system theme changes
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (theme !== "system") return;
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = (e: MediaQueryListEvent) => {
-      const resolved = e.matches ? "dark" : "light";
-      const root = window.document.documentElement;
+    const applySystemTheme = (isDark: boolean) => {
+      const nextResolved = isDark ? "dark" : "light";
+      setResolvedTheme(nextResolved);
+
+      const root = document.documentElement;
       root.classList.remove("light", "dark");
-      root.classList.add(resolved);
-      setActualTheme(resolved);
+      root.classList.add(nextResolved);
     };
+
+    applySystemTheme(mediaQuery.matches);
+    const handleChange = (event: MediaQueryListEvent) =>
+      applySystemTheme(event.matches);
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme]);
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
+  return {
+    theme,
+    setTheme,
+    actualTheme: resolvedTheme,
+    hasHydrated,
   };
-
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme, actualTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
 }
 
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const theme = useThemeStore((state) => state.theme);
+  const [mounted, setMounted] = useState(false);
+
+  // Đợi component mount để tránh lỗi Hydration (Server ko biết localStorage)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [theme]);
+
+  // Tránh render nội dung cho đến khi đã xác định được theme trên client
+  if (!mounted) {
+    return <div style={{ visibility: "hidden" }}>{children}</div>;
   }
-  return context;
+
+  return <>{children}</>;
 }

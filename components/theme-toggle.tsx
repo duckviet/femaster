@@ -11,17 +11,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
-  const { theme, setTheme, actualTheme } = useTheme();
+  const { theme, setTheme, actualTheme, hasHydrated } = useTheme();
+
+  const icon = hasHydrated ? (
+    actualTheme === "dark" ? (
+      <IconMoon className="size-4" />
+    ) : (
+      <IconSun className="size-4" />
+    )
+  ) : (
+    // Render a stable placeholder icon until hydration completes to avoid mismatches
+    <IconSun className="size-4 opacity-0" aria-hidden />
+  );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="h-8 w-8 px-0">
-          {actualTheme === "dark" ? (
-            <IconMoon className="size-4" />
-          ) : (
-            <IconSun className="size-4" />
-          )}
+          {icon}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
