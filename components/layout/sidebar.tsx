@@ -14,6 +14,7 @@ import {
   type SkillSubcategory,
 } from "@/lib/challenges";
 import { ReactNode } from "react";
+import Image from "next/image";
 
 const domainIcons: Record<DomainCategory, ReactNode> = {
   "react-architecture": <IconBrandReact className="size-4" />,
@@ -40,10 +41,18 @@ export function Sidebar({
   return (
     <aside className="w-72 border-r bg-card/50 flex flex-col">
       <div className="p-4 border-b">
-        <h1 className="text-lg font-semibold">Frontend Challenges</h1>
-        <p className="text-xs text-muted-foreground mt-1">
-          {challengeCount} coding challenges
-        </p>
+        <div className="flex gap-2 items-center">
+          <div
+            className="h-8 w-8 bg-primary"
+            style={{
+              maskImage: 'url("/logo/femaster-icon.svg")',
+              WebkitMaskImage: 'url("/logo/femaster-icon.svg")',
+              maskRepeat: "no-repeat",
+              maskSize: "contain",
+            }}
+          />
+          <h1 className="text-2xl font-semibold">Femaster</h1>
+        </div>
       </div>
 
       <nav className="flex-1 p-3 space-y-1 overflow-auto">
@@ -118,7 +127,9 @@ export function Sidebar({
       </nav>
 
       <div className="p-3 border-t">
-        <p className="text-xs text-muted-foreground text-center">@</p>
+        <p className="text-xs text-muted-foreground text-center">
+          @all right serviced
+        </p>
       </div>
     </aside>
   );
