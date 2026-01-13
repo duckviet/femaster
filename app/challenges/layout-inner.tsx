@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   challenges,
@@ -11,6 +11,7 @@ import {
 } from "@/lib/challenges";
 import { Sidebar, ChallengeHeader, ChallengeFooter } from "@/components/layout";
 import { ChallengeSearch } from "@/components/challenge-search";
+import { useChallenge } from "./challenge-context";
 
 interface ChallengesLayoutInnerProps {
   children: React.ReactNode;
@@ -40,6 +41,7 @@ export function ChallengesLayoutInner({
   const [viewMode, setViewModeState] = useState<"tabs" | "split">("tabs");
   const [searchOpen, setSearchOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const { setShowDemo } = useChallenge();
 
   // Load view mode from localStorage on mount
   useEffect(() => {
@@ -187,7 +189,7 @@ export function ChallengesLayoutInner({
           canGoPrev={canGoPrev}
           onNextChallenge={handleNextChallenge}
           onPrevChallenge={handlePrevChallenge}
-          onRunDemo={() => {}}
+          onRunDemo={() => setShowDemo(true)}
         />
       </main>
     </div>

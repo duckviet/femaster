@@ -4,6 +4,7 @@ import {
   getAllChallengeSlugs,
   challenges,
 } from "@/lib/challenges";
+import { ChallengeProvider } from "@/app/challenges/challenge-context";
 import { ChallengesLayoutInner } from "@/app/challenges/layout-inner";
 import ChallengeClient from "./challenge-client";
 
@@ -53,7 +54,7 @@ export default async function Page({
   const prevChallenge = canGoPrev ? challenges[currentIndex - 1] : null;
 
   return (
-    <ChallengesLayoutInner
+    <ChallengeProvider
       challenge={challenge}
       currentIndex={currentIndex}
       canGoNext={canGoNext}
@@ -61,7 +62,16 @@ export default async function Page({
       nextSlug={nextChallenge?.id}
       prevSlug={prevChallenge?.id}
     >
-      <ChallengeClient challenge={challenge} />
-    </ChallengesLayoutInner>
+      <ChallengesLayoutInner
+        challenge={challenge}
+        currentIndex={currentIndex}
+        canGoNext={canGoNext}
+        canGoPrev={canGoPrev}
+        nextSlug={nextChallenge?.id}
+        prevSlug={prevChallenge?.id}
+      >
+        <ChallengeClient challenge={challenge} />
+      </ChallengesLayoutInner>
+    </ChallengeProvider>
   );
 }
