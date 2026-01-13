@@ -14,6 +14,8 @@ interface ChallengeContextType {
   setCopied: (copied: boolean) => void;
   showDemo: boolean;
   setShowDemo: (show: boolean) => void;
+  viewMode: "tabs" | "split";
+  setViewMode: (mode: "tabs" | "split") => void;
 }
 
 const ChallengeContext = createContext<ChallengeContextType | undefined>(
@@ -39,6 +41,23 @@ export function ChallengeProvider({
 }) {
   const [copied, setCopied] = React.useState(false);
   const [showDemo, setShowDemo] = React.useState(false);
+  const [viewMode, setViewModeState] = React.useState<"tabs" | "split">("tabs");
+
+  const setViewMode = React.useCallback((mode: "tabs" | "split") => {
+    setViewModeState(mode);
+    localStorage.setItem("viewMode", mode);
+  }, []);
+
+  // Load view mode from localStorage on mount
+  React.useEffect(() => {
+    const savedViewMode = localStorage.getItem("viewMode") as
+      | "tabs"
+      | "split"
+      | null;
+    if (savedViewMode) {
+      setViewModeState(savedViewMode);
+    }
+  }, []);
 
   return (
     <ChallengeContext.Provider
@@ -53,6 +72,8 @@ export function ChallengeProvider({
         setCopied,
         showDemo,
         setShowDemo,
+        viewMode,
+        setViewMode,
       }}
     >
       {children}
