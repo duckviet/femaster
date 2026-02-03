@@ -95,7 +95,7 @@ const CommentItem = ({
 
 export function NestedCommentsDemo() {
   return (
-    <div className="p-4 bg-card rounded-lg border max-h-[400px] overflow-auto">
+    <div className="p-4 bg-card rounded-lg border max-h-[600px] overflow-auto">
       <h3 className="text-sm font-semibold mb-4">
         Comments ({sampleData.length})
       </h3>

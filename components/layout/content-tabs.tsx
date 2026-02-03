@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Challenge } from "@/lib/challenges";
 import { CodeBlock } from "../ui/code-block";
 import { Suspense } from "react";
+import { DemoModal } from "./demo-modal";
 
 interface ContentTabsProps {
   challenge: Challenge;
@@ -96,7 +97,9 @@ export function ContentTabs({
 
       <TabsContent value="preview" className="mt-4">
         {DemoComponent ? (
-          <DemoComponent />
+          <DemoModal>
+            <DemoComponent />
+          </DemoModal>
         ) : (
           <Card className="p-8 text-center text-muted-foreground">
             <IconCode className="size-12 mx-auto mb-3 opacity-30" />

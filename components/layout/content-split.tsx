@@ -4,7 +4,10 @@ import {
   IconCheck,
   IconPlayerPlay,
   IconX,
+  IconMaximize,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import { DemoModal } from "./demo-modal";
 import { Card } from "@/components/ui/card";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Button } from "@/components/ui/button";
@@ -78,8 +81,11 @@ export function ContentSplit({
           <IconPlayerPlay className="size-4" />
           Live Preview
         </div>
+
         {DemoComponent ? (
-          <DemoComponent />
+          <DemoModal>
+            <DemoComponent />
+          </DemoModal>
         ) : (
           <Card className="p-8 text-center text-muted-foreground h-87.5 flex flex-col items-center justify-center">
             <IconCode className="size-12 mb-3 opacity-30" />
