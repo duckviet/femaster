@@ -71,7 +71,7 @@ export function ChallengeSearch({
           .toLowerCase()
           .includes(query);
         const mistakesMatch = challenge.commonMistakes.some((m) =>
-          m.toLowerCase().includes(query)
+          m.toLowerCase().includes(query),
         );
 
         // Simple fuzzy matching: check if query characters appear in order
@@ -196,7 +196,9 @@ export function ChallengeSearch({
         <div className="flex-1 overflow-auto px-6 py-2">
           {filteredChallenges.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="text-4xl mb-2">🔍</div>
+              <div className="text-4xl mb-2">
+                <IconSearch className="size-8 text-muted-foreground" />
+              </div>
               <p className="text-sm text-muted-foreground">
                 No challenges found
               </p>
@@ -247,7 +249,7 @@ export function ChallengeSearch({
                         >
                           {
                             domainStructure.find(
-                              (d) => d.id === challenge.domain
+                              (d) => d.id === challenge.domain,
                             )?.label
                           }
                         </Badge>

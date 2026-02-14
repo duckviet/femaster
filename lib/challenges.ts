@@ -3,7 +3,8 @@ export type DomainCategory =
   | "react-architecture"
   | "performance-scalability"
   | "core-cs-javascript"
-  | "custom-hooks-browser";
+  | "custom-hooks-browser"
+  | "animation-interaction";
 
 // Skill Subcategories (Level 2)
 export type SkillSubcategory =
@@ -21,7 +22,9 @@ export type SkillSubcategory =
   | "object-logic"
   // Custom Hooks & Browser API
   | "dom-interaction"
-  | "event-systems";
+  | "event-systems"
+  // Animation & Motion
+  | "custom-cursor";
 
 export interface Challenge {
   id: string;
@@ -74,6 +77,7 @@ import undoRedo from "@/data/challenges/undo-redo.json";
 import fileExplorer from "@/data/challenges/file-explorer.json";
 import reactMemoUsememo from "@/data/challenges/react-memo-usememo.json";
 import infiniteScroll from "@/data/challenges/infinite-scroll.json";
+import motionCursor from "@/data/challenges/custom-cursor.json";
 
 export const domainStructure: DomainInfo[] = [
   {
@@ -159,6 +163,18 @@ export const domainStructure: DomainInfo[] = [
       },
     ],
   },
+  {
+    id: "animation-interaction",
+    label: "Animation & Interaction",
+    icon: "IconSparkles",
+    subcategories: [
+      {
+        id: "custom-cursor",
+        label: "Custom Cursor",
+        description: "Motion values, springs, transforms",
+      },
+    ],
+  },
 ];
 
 type RawChallenge = Omit<Challenge, "code"> & {
@@ -183,6 +199,7 @@ const rawChallenges: RawChallenge[] = [
   fileExplorer,
   reactMemoUsememo,
   infiniteScroll,
+  motionCursor,
 ].map((challenge) => ({
   ...challenge,
   // JSON imports type domain/subcategory as string; narrow to our union types.
@@ -203,7 +220,7 @@ export const categories: Record<
   ChallengeCategory,
   { label: string; icon: string }
 > = Object.fromEntries(
-  domainStructure.map((d) => [d.id, { label: d.label, icon: d.icon }])
+  domainStructure.map((d) => [d.id, { label: d.label, icon: d.icon }]),
 ) as Record<ChallengeCategory, { label: string; icon: string }>;
 
 export function getChallengesByDomain(domain: DomainCategory): Challenge[] {
@@ -211,13 +228,13 @@ export function getChallengesByDomain(domain: DomainCategory): Challenge[] {
 }
 
 export function getChallengesBySubcategory(
-  subcategory: SkillSubcategory
+  subcategory: SkillSubcategory,
 ): Challenge[] {
   return challenges.filter((c) => c.subcategory === subcategory);
 }
 
 export function getChallengesByCategory(
-  category: ChallengeCategory
+  category: ChallengeCategory,
 ): Challenge[] {
   return getChallengesByDomain(category);
 }
@@ -227,7 +244,7 @@ export function getChallengeById(id: string): Challenge | undefined {
 }
 
 export function getSubcategoryInfo(
-  subcategory: SkillSubcategory
+  subcategory: SkillSubcategory,
 ): SubcategoryInfo | undefined {
   for (const domain of domainStructure) {
     const sub = domain.subcategories.find((s) => s.id === subcategory);
@@ -237,10 +254,10 @@ export function getSubcategoryInfo(
 }
 
 export function getDomainBySubcategory(
-  subcategory: SkillSubcategory
+  subcategory: SkillSubcategory,
 ): DomainInfo | undefined {
   return domainStructure.find((d) =>
-    d.subcategories.some((s) => s.id === subcategory)
+    d.subcategories.some((s) => s.id === subcategory),
   );
 }
 
