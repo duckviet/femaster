@@ -15,6 +15,7 @@ import {
   FileExplorerDemo,
   MemoStrategyDemo,
   InfiniteScrollDemo,
+  CustomCursorDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -34,12 +35,13 @@ export const demoRegistry = {
   FileExplorerDemo: FileExplorerDemo,
   MemoStrategyDemo: MemoStrategyDemo,
   InfiniteScrollDemo: InfiniteScrollDemo,
+  CustomCursorDemo: CustomCursorDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;
 
 export function getDemoComponent(
-  demoComponentKey?: string
+  demoComponentKey?: string,
 ): React.ComponentType | null {
   if (!demoComponentKey) return null;
   return demoRegistry[demoComponentKey as DemoKey] ?? null;

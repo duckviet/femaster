@@ -14,3 +14,4 @@ export { UndoRedoDemo } from "./undo-redo-demo";
 export { FileExplorerDemo } from "./file-explorer-demo";
 export { MemoStrategyDemo } from "./memo-strategy-demo";
 export { InfiniteScrollDemo } from "./infinite-scroll-demo";
+export { CustomCursorDemo } from "./custom-cursor-demo";

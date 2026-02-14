@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   challenges,
+  getDomainBySubcategory,
   getChallengesBySubcategory,
   type Challenge,
   type DomainCategory,
@@ -12,6 +13,7 @@ import {
 import { Sidebar, ChallengeHeader, ChallengeFooter } from "@/components/layout";
 import { ChallengeSearch } from "@/components/challenge-search";
 import { useChallenge } from "./challenge-context";
+import usePersistentState from "@/hooks/usePersistentState";
 
 interface ChallengesLayoutInnerProps {
   children: React.ReactNode;
@@ -33,11 +35,26 @@ export function ChallengesLayoutInner({
   prevSlug,
 }: ChallengesLayoutInnerProps) {
   const router = useRouter();
-  const [expandedDomains, setExpandedDomains] = useState<DomainCategory[]>([
-    "react-architecture",
-  ]);
-  const [selectedSubcategory, setSelectedSubcategory] =
-    useState<SkillSubcategory>(challenge.subcategory);
+  const defaultDomain =
+    getDomainBySubcategory(challenge.subcategory)?.id ?? "react-architecture";
+  const [persistedExpandedDomains, setPersistedExpandedDomains] =
+    usePersistentState<DomainCategory[]>("challenges.expanded-domains", [
+      defaultDomain,
+    ]);
+  const [persistedSubcategory, setPersistedSubcategory] =
+    usePersistentState<SkillSubcategory>(
+      "challenges.selected-subcategory",
+      challenge.subcategory,
+    );
+  const [persistedSidebarCollapsed, setPersistedSidebarCollapsed] =
+    usePersistentState<boolean>("challenges.sidebar-collapsed", false);
+
+  const expandedDomains =
+    persistedExpandedDomains && persistedExpandedDomains.length > 0
+      ? persistedExpandedDomains
+      : [defaultDomain];
+  const selectedSubcategory = persistedSubcategory ?? challenge.subcategory;
+  const isSidebarCollapsed = persistedSidebarCollapsed ?? false;
   const [searchOpen, setSearchOpen] = useState(false);
   const { setShowDemo, viewMode, setViewMode, copied, handleCopyCode } =
     useChallenge();
@@ -53,23 +70,59 @@ export function ChallengesLayoutInner({
     }
   }, [setViewMode]);
 
+  useEffect(() => {
+    if (selectedSubcategory !== challenge.subcategory) {
+      setPersistedSubcategory(challenge.subcategory);
+    }
+
+    const domain = getDomainBySubcategory(challenge.subcategory)?.id;
+    if (!domain) return;
+
+    setPersistedExpandedDomains((prev) => {
+      const current = prev && prev.length > 0 ? prev : [defaultDomain];
+      return current.includes(domain) ? current : [...current, domain];
+    });
+  }, [
+    challenge.subcategory,
+    defaultDomain,
+    selectedSubcategory,
+    setPersistedExpandedDomains,
+    setPersistedSubcategory,
+  ]);
+
   const filteredChallenges = getChallengesBySubcategory(selectedSubcategory);
 
   const toggleDomain = (domain: DomainCategory) => {
-    setExpandedDomains((prev) =>
-      prev.includes(domain)
-        ? prev.filter((d) => d !== domain)
-        : [...prev, domain]
-    );
+    setPersistedExpandedDomains((prev) => {
+      const current = prev && prev.length > 0 ? prev : [defaultDomain];
+      return current.includes(domain)
+        ? current.filter((d) => d !== domain)
+        : [...current, domain];
+    });
   };
 
   const handleSubcategoryChange = (subcategory: SkillSubcategory) => {
-    setSelectedSubcategory(subcategory);
+    setPersistedSubcategory(subcategory);
+
+    const parentDomain = getDomainBySubcategory(subcategory)?.id;
+    if (parentDomain) {
+      setPersistedExpandedDomains((prev) => {
+        const current = prev && prev.length > 0 ? prev : [defaultDomain];
+        return current.includes(parentDomain)
+          ? current
+          : [...current, parentDomain];
+      });
+    }
+
     const firstInSubcategory = getChallengesBySubcategory(subcategory)[0];
     if (firstInSubcategory) {
       router.push(`/challenges/${firstInSubcategory.id}`);
     }
   };
+
+  const handleToggleSidebar = useCallback(() => {
+    setPersistedSidebarCollapsed((prev) => !(prev ?? false));
+  }, [setPersistedSidebarCollapsed]);
 
   const handleNextChallenge = () => {
     if (nextSlug) {
@@ -123,6 +176,7 @@ export function ChallengesLayoutInner({
   const handleSelectChallenge = (challengeId: string) => {
     const c = challenges.find((ch) => ch.id === challengeId);
     if (c) {
+      setPersistedSubcategory(c.subcategory);
       router.push(`/challenges/${c.id}`);
     }
   };
@@ -138,8 +192,10 @@ export function ChallengesLayoutInner({
 
       {/* Sidebar */}
       <Sidebar
+        isCollapsed={isSidebarCollapsed}
         expandedDomains={expandedDomains}
         selectedSubcategory={selectedSubcategory}
+        onToggleCollapse={handleToggleSidebar}
         onToggleDomain={toggleDomain}
         onSubcategoryChange={handleSubcategoryChange}
         challengeCount={challenges.length}
@@ -157,6 +213,7 @@ export function ChallengesLayoutInner({
           onChallengeChange={(id) => {
             const c = challenges.find((ch) => ch.id === id);
             if (c) {
+              setPersistedSubcategory(c.subcategory);
               router.push(`/challenges/${c.id}`);
             }
           }}
