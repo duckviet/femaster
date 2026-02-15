@@ -13,8 +13,12 @@
     "Must maintain exact same functionality before and after"
   ],
   "complexity": "Time: O(n) for rendering, O(1) for memoized computations, Space: O(n) for memoization cache",
-  "code": "// Unoptimized version\nfunction SlowList({ items }) {\n  const handleSort = () => items.sort((a, b) => a.value - b.value);\n  \n  return (\n    <div>\n      {items.map((item) => (\n        <ListItem key={item.id} item={item} onSort={handleSort} />\n      ))}\n    </div>\n  );\n}\n\n// Optimized version\nconst ListItem = React.memo(({ item, onSort }) => {\n  return <div onClick={onSort}>{item.name}</div>;\n});\n\nfunction OptimizedList({ items }) {\n  const handleSort = useCallback(() => {\n    return [...items].sort((a, b) => a.value - b.value);\n  }, [items]);\n\n  const sortedItems = useMemo(() => {\n    return [...items].sort((a, b) => a.value - b.value);\n  }, [items]);\n\n  return (\n    <div>\n      {sortedItems.map((item) => (\n        <ListItem key={item.id} item={item} onSort={handleSort} />\n      ))}\n    </div>\n  );\n}\n\n// Key principles:\n// 1. React.memo prevents re-render if props didn't change\n// 2. useCallback maintains stable function reference across renders\n// 3. useMemo caches expensive computations\n// 4. All three require proper dependency arrays\n// 5. Use React DevTools Profiler to measure impact\n// 6. Profile before optimizing - don't optimize prematurely",
-  "language": "tsx",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "// Unoptimized version\nfunction SlowList({ items }) {\n  const handleSort = () => items.sort((a, b) => a.value - b.value);\n  \n  return (\n    <div>\n      {items.map((item) => (\n        <ListItem key={item.id} item={item} onSort={handleSort} />\n      ))}\n    </div>\n  );\n}\n\n// Optimized version\nconst ListItem = React.memo(({ item, onSort }) => {\n  return <div onClick={onSort}>{item.name}</div>;\n});\n\nfunction OptimizedList({ items }) {\n  const handleSort = useCallback(() => {\n    return [...items].sort((a, b) => a.value - b.value);\n  }, [items]);\n\n  const sortedItems = useMemo(() => {\n    return [...items].sort((a, b) => a.value - b.value);\n  }, [items]);\n\n  return (\n    <div>\n      {sortedItems.map((item) => (\n        <ListItem key={item.id} item={item} onSort={handleSort} />\n      ))}\n    </div>\n  );\n}\n\n// Key principles:\n// 1. React.memo prevents re-render if props didn't change\n// 2. useCallback maintains stable function reference across renders\n// 3. useMemo caches expensive computations\n// 4. All three require proper dependency arrays\n// 5. Use React DevTools Profiler to measure impact\n// 6. Profile before optimizing - don't optimize prematurely"
+    }
+  ],
   "commonMistakes": [
     "Using React.memo on every component without measuring first",
     "Missing dependencies in useMemo/useCallback causing stale values",

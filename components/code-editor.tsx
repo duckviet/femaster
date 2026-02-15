@@ -12,15 +12,10 @@ import {
   IconTestPipe,
   IconX,
 } from "@tabler/icons-react";
-import { div } from "motion/react-client";
+import { Challenge } from "@/lib/challenges";
 
 interface CodeEditorProps {
-  challenge: {
-    id: string;
-    title: string;
-    code: string;
-    language: "tsx" | "typescript" | "javascript";
-  };
+  challenge: Challenge;
   functionName?: string;
   testCases?: Array<{
     name: string;
@@ -41,7 +36,7 @@ export function CodeEditor({
   testCases = [],
   functionName,
 }: CodeEditorProps) {
-  const [code, setCode] = useState(challenge.code);
+  const [code, setCode] = useState(challenge.code[0].content);
   const [isRunning, setIsRunning] = useState(false);
   const [results, setResults] = useState<TestResult[]>([]);
   const editorRef = useRef(null);
@@ -140,7 +135,7 @@ export function CodeEditor({
         };
       `,
         ],
-        { type: "application/javascript" }
+        { type: "application/javascript" },
       );
 
       const workerUrl = URL.createObjectURL(blob);
@@ -178,7 +173,7 @@ export function CodeEditor({
   };
 
   const handleReset = () => {
-    setCode(challenge.code);
+    setCode(challenge.code[0].content);
     setResults([]);
   };
 

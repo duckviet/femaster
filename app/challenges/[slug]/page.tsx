@@ -2,14 +2,15 @@ import { notFound } from "next/navigation";
 import {
   getChallengeBySlug,
   getAllChallengeSlugs,
-  challenges,
-} from "@/lib/challenges";
+  getChallenges,
+} from "@/lib/challenges.server";
 import { ChallengeProvider } from "@/app/challenges/challenge-context";
 import { ChallengesLayoutInner } from "@/app/challenges/layout-inner";
 import ChallengeClient from "./challenge-client";
 
 export async function generateStaticParams() {
-  return getAllChallengeSlugs().map((slug) => ({
+  const slugs = await getAllChallengeSlugs();
+  return slugs.map((slug) => ({
     slug,
   }));
 }
@@ -20,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const challenge = getChallengeBySlug(slug);
+  const challenge = await getChallengeBySlug(slug);
 
   if (!challenge) {
     return {
@@ -40,11 +41,13 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const challenge = getChallengeBySlug(slug);
+  const challenge = await getChallengeBySlug(slug);
 
   if (!challenge) {
     notFound();
   }
+
+  const challenges = await getChallenges();
 
   // Get current index and navigation info
   const currentIndex = challenges.findIndex((c) => c.id === challenge.id);
@@ -64,6 +67,7 @@ export default async function Page({
     >
       <ChallengesLayoutInner
         challenge={challenge}
+        challenges={challenges}
         currentIndex={currentIndex}
         canGoNext={canGoNext}
         canGoPrev={canGoPrev}

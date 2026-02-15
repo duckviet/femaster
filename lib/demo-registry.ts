@@ -16,6 +16,7 @@ import {
   MemoStrategyDemo,
   InfiniteScrollDemo,
   CustomCursorDemo,
+  ScrollTriggerDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -36,6 +37,7 @@ export const demoRegistry = {
   MemoStrategyDemo: MemoStrategyDemo,
   InfiniteScrollDemo: InfiniteScrollDemo,
   CustomCursorDemo: CustomCursorDemo,
+  ScrollTriggerDemo: ScrollTriggerDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;

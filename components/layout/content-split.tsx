@@ -50,8 +50,8 @@ export function ContentSplit({
           </div>
           <CodeBlock
             className="rounded-none"
-            code={challenge.code}
-            language={challenge.language || "tsx"}
+            code={challenge.code[0]?.content}
+            language={challenge.code[0]?.language || "tsx"}
             showLineNumbers
           />
         </Card>

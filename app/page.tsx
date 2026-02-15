@@ -1,7 +1,13 @@
 import { redirect } from "next/navigation";
-import { challenges } from "@/lib/challenges";
+import { getChallenges } from "@/lib/challenges.server";
 
-export default function Page() {
+export default async function Page() {
   // Redirect to the first challenge
-  redirect(`/challenges/${challenges[0].id}`);
+  const challenges = await getChallenges();
+
+  if (challenges.length > 0) {
+    redirect(`/challenges/${challenges[0].id}`);
+  }
+
+  redirect("/challenges");
 }

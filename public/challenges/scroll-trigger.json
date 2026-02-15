@@ -1,0 +1,23 @@
+{
+  "id": "scroll-trigger",
+  "title": "Scroll Trigger với Framer Motion",
+  "domain": "animation-interaction",
+  "subcategory": "scroll-trigger",
+  "difficulty": "Mid",
+  "demoComponentKey": "ScrollTriggerDemo",
+  "statement": "Tạo custom cursor bám theo chuột bằng Framer Motion. Cursor phải có độ trễ mượt (spring), phóng to khi hover vào tiêu đề và snap về giữa màn hình trong lúc hover.",
+  "constraints": [
+    "Không dùng setInterval hoặc requestAnimationFrame thủ công cho tracking."
+  ],
+  "complexity": "Time: O(1) mỗi event, Space: O(1)",
+  "code": [
+    {
+      "language": "tsx",
+      "content": ""
+    }
+  ],
+  "content": ["\"use client\";"],
+  "language": "tsx",
+
+  "commonMistakes": [""]
+}

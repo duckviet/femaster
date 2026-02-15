@@ -18,12 +18,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { challenges, type Challenge, domainStructure } from "@/lib/challenges";
+import { type Challenge, domainStructure } from "@/lib/challenges";
 
 interface ChallengeSearchProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSelectChallenge: (challengeId: string) => void;
+  challenges: Challenge[];
 }
 
 type DifficultyFilter = "all" | "Mid" | "Senior";
@@ -33,6 +34,7 @@ export function ChallengeSearch({
   open,
   onOpenChange,
   onSelectChallenge,
+  challenges,
 }: ChallengeSearchProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] =
