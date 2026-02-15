@@ -59,7 +59,7 @@ export function Sidebar({
         isCollapsed ? "w-16" : "w-72",
       )}
     >
-      <div className="p-4 border-b">
+      <div className="p-4 border-b h-16">
         <div className="flex gap-2 items-center justify-between relative">
           <div className="flex gap-2 items-center min-w-0">
             <div

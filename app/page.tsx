@@ -1,13 +1,17 @@
-import { redirect } from "next/navigation";
+// app/page.tsx
+import { domainStructure } from "@/lib/challenges";
 import { getChallenges } from "@/lib/challenges.server";
+import { LandingContent } from "@/components/landing-content";
 
 export default async function Page() {
-  // Redirect to the first challenge
   const challenges = await getChallenges();
+  const firstChallenge = challenges[0];
 
-  if (challenges.length > 0) {
-    redirect(`/challenges/${challenges[0].id}`);
-  }
-
-  redirect("/challenges");
+  return (
+    <LandingContent
+      challengeCount={challenges.length}
+      domainCount={domainStructure.length}
+      firstChallengeId={firstChallenge?.id}
+    />
+  );
 }
