@@ -24,7 +24,8 @@ export type SkillSubcategory =
   | "dom-interaction"
   | "event-systems"
   // Animation & Motion
-  | "custom-cursor";
+  | "custom-cursor"
+  | "scroll-trigger";
 
 export interface Challenge {
   id: string;
@@ -35,7 +36,7 @@ export interface Challenge {
   statement: string;
   constraints: string[];
   complexity?: string;
-  code: string;
+  code: { language: "tsx" | "typescript" | "javascript"; content: string }[];
   language: "tsx" | "typescript" | "javascript";
   commonMistakes: string[];
   demoComponentKey?: string;
@@ -60,24 +61,6 @@ export interface DomainInfo {
   icon: string;
   subcategories: SubcategoryInfo[];
 }
-
-import nestedComments from "@/data/challenges/nested-comments.json";
-import useDebounce from "@/data/challenges/use-debounce.json";
-import compoundTabs from "@/data/challenges/compound-tabs.json";
-import deepMerge from "@/data/challenges/deep-merge.json";
-import flatToTree from "@/data/challenges/flat-to-tree.json";
-import lruCache from "@/data/challenges/lru-cache.json";
-import longestSubstring from "@/data/challenges/longest-substring.json";
-import virtualList from "@/data/challenges/virtual-list.json";
-import webWorkerFilter from "@/data/challenges/web-worker-filter.json";
-import memoizeTtl from "@/data/challenges/memoize-ttl.json";
-import hocPattern from "@/data/challenges/hoc-pattern.json";
-import renderProps from "@/data/challenges/render-props.json";
-import undoRedo from "@/data/challenges/undo-redo.json";
-import fileExplorer from "@/data/challenges/file-explorer.json";
-import reactMemoUsememo from "@/data/challenges/react-memo-usememo.json";
-import infiniteScroll from "@/data/challenges/infinite-scroll.json";
-import motionCursor from "@/data/challenges/custom-cursor.json";
 
 export const domainStructure: DomainInfo[] = [
   {
@@ -173,46 +156,32 @@ export const domainStructure: DomainInfo[] = [
         label: "Custom Cursor",
         description: "Motion values, springs, transforms",
       },
+      {
+        id: "scroll-trigger",
+        label: "Scroll Trigger",
+        description: "Motion values, springs, transforms",
+      },
     ],
   },
 ];
 
-type RawChallenge = Omit<Challenge, "code"> & {
-  code?: string;
-  codeLines?: string[];
-};
+export function normalizeChallengeImport(raw: any): Challenge {
+  const normalizedCode = (raw.code || []).map((entry: any) => ({
+    ...entry,
+    content: Array.isArray(entry.content)
+      ? entry.content.join("\n")
+      : (entry.content ?? ""),
+  }));
 
-const rawChallenges: RawChallenge[] = [
-  nestedComments,
-  useDebounce,
-  compoundTabs,
-  deepMerge,
-  flatToTree,
-  lruCache,
-  longestSubstring,
-  virtualList,
-  webWorkerFilter,
-  memoizeTtl,
-  hocPattern,
-  renderProps,
-  undoRedo,
-  fileExplorer,
-  reactMemoUsememo,
-  infiniteScroll,
-  motionCursor,
-].map((challenge) => ({
-  ...challenge,
-  // JSON imports type domain/subcategory as string; narrow to our union types.
-  domain: challenge.domain as DomainCategory,
-  subcategory: challenge.subcategory as SkillSubcategory,
-  difficulty: challenge.difficulty as Challenge["difficulty"],
-  language: challenge.language as Challenge["language"],
-}));
-
-export const challenges: Challenge[] = rawChallenges.map((item) => ({
-  ...item,
-  code: item.code ?? (item.codeLines ? item.codeLines.join("\n") : ""),
-}));
+  return {
+    ...raw,
+    domain: raw.domain as DomainCategory,
+    subcategory: raw.subcategory as SkillSubcategory,
+    difficulty: raw.difficulty as Challenge["difficulty"],
+    language: normalizedCode[0]?.language as Challenge["language"],
+    code: normalizedCode as Challenge["code"],
+  };
+}
 
 // Legacy compatibility for current page usage
 export type ChallengeCategory = DomainCategory;
@@ -223,24 +192,25 @@ export const categories: Record<
   domainStructure.map((d) => [d.id, { label: d.label, icon: d.icon }]),
 ) as Record<ChallengeCategory, { label: string; icon: string }>;
 
-export function getChallengesByDomain(domain: DomainCategory): Challenge[] {
-  return challenges.filter((c) => c.domain === domain);
+export function getChallengesByDomain(
+  allChallenges: Challenge[],
+  domain: DomainCategory,
+): Challenge[] {
+  return allChallenges.filter((c) => c.domain === domain);
 }
 
 export function getChallengesBySubcategory(
+  allChallenges: Challenge[],
   subcategory: SkillSubcategory,
 ): Challenge[] {
-  return challenges.filter((c) => c.subcategory === subcategory);
+  return allChallenges.filter((c) => c.subcategory === subcategory);
 }
 
 export function getChallengesByCategory(
+  allChallenges: Challenge[],
   category: ChallengeCategory,
 ): Challenge[] {
-  return getChallengesByDomain(category);
-}
-
-export function getChallengeById(id: string): Challenge | undefined {
-  return challenges.find((c) => c.id === id);
+  return getChallengesByDomain(allChallenges, category);
 }
 
 export function getSubcategoryInfo(
@@ -259,12 +229,4 @@ export function getDomainBySubcategory(
   return domainStructure.find((d) =>
     d.subcategories.some((s) => s.id === subcategory),
   );
-}
-
-export function getChallengeBySlug(slug: string): Challenge | undefined {
-  return challenges.find((c) => c.id === slug);
-}
-
-export function getAllChallengeSlugs(): string[] {
-  return challenges.map((c) => c.id);
 }

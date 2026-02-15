@@ -10,29 +10,34 @@
     "Input rỗng: trả về 0."
   ],
   "complexity": "Time: O(n). Space: O(min(m, n)) với m là kích thước bảng chữ cái.",
-  "codeLines": [
-    "function lengthOfLongestSubstring(s: string): number {",
-    "  let maxLength = 0;",
-    "  let start = 0;",
-    "  const charMap = new Map<string, number>();",
-    "",
-    "  for (let end = 0; end < s.length; end++) {",
-    "    const char = s[end];",
-    "",
-    "    if (charMap.has(char)) {",
-    "      start = Math.max(start, charMap.get(char)! + 1);",
-    "    }",
-    "",
-    "    charMap.set(char, end);",
-    "    maxLength = Math.max(maxLength, end - start + 1);",
-    "  }",
-    "",
-    "  return maxLength;",
-    "}",
-    "",
-    "// Example: \"abcabcbb\" -> 3 (\"abc\")"
+  "code": [
+    {
+      "content": [
+        "function lengthOfLongestSubstring(s: string): number {",
+        "  let maxLength = 0;",
+        "  let start = 0;",
+        "  const charMap = new Map<string, number>();",
+        "",
+        "  for (let end = 0; end < s.length; end++) {",
+        "    const char = s[end];",
+        "",
+        "    if (charMap.has(char)) {",
+        "      start = Math.max(start, charMap.get(char)! + 1);",
+        "    }",
+        "",
+        "    charMap.set(char, end);",
+        "    maxLength = Math.max(maxLength, end - start + 1);",
+        "  }",
+        "",
+        "  return maxLength;",
+        "}",
+        "",
+        "// Example: \"abcabcbb\" -> 3 (\"abc\")"
+      ],
+      "language": "typescript"
+    }
   ],
-  "language": "typescript",
+
   "commonMistakes": [
     "Sử dụng 2 vòng lặp lồng nhau (O(n²)).",
     "Khi cập nhật `start`, không dùng `Math.max`, dẫn đến việc `start` có thể nhảy ngược."

@@ -14,6 +14,7 @@ import {
   domainStructure,
   getChallengesBySubcategory,
   getDomainBySubcategory,
+  type Challenge,
   type DomainCategory,
   type SkillSubcategory,
 } from "@/lib/challenges";
@@ -36,6 +37,7 @@ interface SidebarProps {
   onToggleDomain: (domain: DomainCategory) => void;
   onSubcategoryChange: (subcategory: SkillSubcategory) => void;
   challengeCount: number;
+  challenges: Challenge[];
 }
 
 export function Sidebar({
@@ -46,6 +48,7 @@ export function Sidebar({
   onToggleDomain,
   onSubcategoryChange,
   challengeCount,
+  challenges,
 }: SidebarProps) {
   const selectedDomain = getDomainBySubcategory(selectedSubcategory)?.id;
 
@@ -100,7 +103,8 @@ export function Sidebar({
           {domainStructure.map((domain) => {
             const isActive = selectedDomain === domain.id;
             const domainChallengeCount = domain.subcategories.reduce(
-              (acc, sub) => acc + getChallengesBySubcategory(sub.id).length,
+              (acc, sub) =>
+                acc + getChallengesBySubcategory(challenges, sub.id).length,
               0,
             );
 
@@ -127,7 +131,8 @@ export function Sidebar({
           {domainStructure.map((domain) => {
             const isExpanded = expandedDomains.includes(domain.id);
             const domainChallengeCount = domain.subcategories.reduce(
-              (acc, sub) => acc + getChallengesBySubcategory(sub.id).length,
+              (acc, sub) =>
+                acc + getChallengesBySubcategory(challenges, sub.id).length,
               0,
             );
 
@@ -157,6 +162,7 @@ export function Sidebar({
                   <div className="ml-4 pl-3 border-l border-muted space-y-0.5">
                     {domain.subcategories.map((sub) => {
                       const subCount = getChallengesBySubcategory(
+                        challenges,
                         sub.id,
                       ).length;
                       const isActive = selectedSubcategory === sub.id;

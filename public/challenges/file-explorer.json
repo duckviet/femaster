@@ -1,0 +1,31 @@
+{
+  "id": "file-explorer",
+  "title": "File Explorer",
+  "domain": "react-architecture",
+  "subcategory": "recursive-ui",
+  "difficulty": "Mid",
+  "statement": "Build a file/folder tree component with expand/collapse functionality. This challenges tests your understanding of recursive React components, tree data structures, and handling complex nested state.\n\nYour implementation should:\n1. Render a hierarchical file/folder structure\n2. Support expand/collapse for folders\n3. Handle file and folder icons\n4. Allow adding/removing items (bonus)\n5. Support search/filtering (bonus)\n6. Properly manage open/closed state",
+  "constraints": [
+    "Must handle deeply nested structures (5+ levels)",
+    "Folder expand/collapse must be O(1) per node",
+    "Must not re-render unrelated nodes when state changes",
+    "Must display different icons for files vs folders",
+    "Must handle empty folders"
+  ],
+  "complexity": "Time: O(n) for rendering, O(1) for expand/collapse per node, Space: O(h) where h is tree height",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "interface FileItem {\n  id: string;\n  name: string;\n  type: 'file' | 'folder';\n  children?: FileItem[];\n}\n\ninterface TreeNodeProps {\n  item: FileItem;\n  level: number;\n  expanded: Record<string, boolean>;\n  onToggle: (id: string) => void;\n}\n\nconst TreeNode: React.FC<TreeNodeProps> = ({ item, level, expanded, onToggle }) => {\n  const isFolder = item.type === 'folder';\n  const isExpanded = expanded[item.id] ?? false;\n\n  return (\n    <div style={{ marginLeft: `${level * 20}px` }}>\n      <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>\n        {isFolder && (\n          <button onClick={() => onToggle(item.id)} style={{ marginRight: '8px' }}>\n            {isExpanded ? '▼' : '▶'}\n          </button>\n        )}\n        {isFolder ? '📁' : '📄'} {item.name}\n      </div>\n      {isFolder && isExpanded && item.children && (\n        <div>\n          {item.children.map((child) => (\n            <TreeNode\n              key={child.id}\n              item={child}\n              level={level + 1}\n              expanded={expanded}\n              onToggle={onToggle}\n            />\n          ))}\n        </div>\n      )}\n    </div>\n  );\n};\n\ninterface FileExplorerProps {\n  root: FileItem;\n}\n\nconst FileExplorer: React.FC<FileExplorerProps> = ({ root }) => {\n  const [expanded, setExpanded] = useState<Record<string, boolean>>({\n    [root.id]: true,\n  });\n\n  const handleToggle = (id: string) => {\n    setExpanded((prev) => ({\n      ...prev,\n      [id]: !prev[id],\n    }));\n  };\n\n  return (\n    <TreeNode\n      item={root}\n      level={0}\n      expanded={expanded}\n      onToggle={handleToggle}\n    />\n  );\n};\n\n// Usage:\nconst fileStructure: FileItem = {\n  id: 'root',\n  name: 'root',\n  type: 'folder',\n  children: [\n    {\n      id: 'src',\n      name: 'src',\n      type: 'folder',\n      children: [\n        { id: 'app.tsx', name: 'app.tsx', type: 'file' },\n        { id: 'index.ts', name: 'index.ts', type: 'file' },\n      ],\n    },\n    { id: 'package.json', name: 'package.json', type: 'file' },\n  ],\n};\n\n<FileExplorer root={fileStructure} />"
+    }
+  ],
+  "commonMistakes": [
+    "Creating new functions in render causing all children to re-render",
+    "Not memoizing TreeNode component, causing performance issues with large trees",
+    "Using array index as key instead of unique IDs",
+    "Mutating expanded state directly instead of using immutable updates",
+    "Not handling edge cases like empty folders or missing children",
+    "Inefficiently checking expansion state for every node"
+  ],
+  "demoComponentKey": "FileExplorerDemo"
+}

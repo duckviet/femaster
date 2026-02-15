@@ -20,7 +20,7 @@ interface ChallengeContextType {
 }
 
 const ChallengeContext = createContext<ChallengeContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function ChallengeProvider({
@@ -62,7 +62,7 @@ export function ChallengeProvider({
   const copyTimeoutRef = useRef<number | null>(null);
 
   const handleCopyCode = async () => {
-    await navigator.clipboard.writeText(challenge.code);
+    await navigator.clipboard.writeText(challenge.code[0].content);
     setCopied(true);
     if (copyTimeoutRef.current) {
       clearTimeout(copyTimeoutRef.current);

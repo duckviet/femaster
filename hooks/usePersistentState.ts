@@ -6,17 +6,20 @@ export default function usePersistentState<T>(
 ) {
   const initialValueRef = useRef(initialValue);
   const isFirst = useRef(true);
-  const [value, setValue] = useState<T | null>(() => {
-    if (typeof window === "undefined") return initialValueRef.current as T;
+  const [value, setValue] = useState<T | null>(initialValueRef.current as T);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
     try {
       const stored = window.localStorage.getItem(key);
-      return stored ? JSON.parse(stored) : (initialValueRef.current as T);
+      if (stored !== null) {
+        setValue(JSON.parse(stored));
+      }
     } catch (error) {
       console.error(`Error parsing localStorage for key ${key}:`, error);
-      return initialValueRef.current as T;
     }
-  });
+  }, [key]);
 
   // Cleanup storage khi value là null/undefined
   const cleanupStorage = useCallback(

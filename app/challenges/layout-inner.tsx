@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
-  challenges,
   getDomainBySubcategory,
   getChallengesBySubcategory,
   type Challenge,
@@ -18,6 +17,7 @@ import usePersistentState from "@/hooks/usePersistentState";
 interface ChallengesLayoutInnerProps {
   children: React.ReactNode;
   challenge: Challenge;
+  challenges: Challenge[];
   currentIndex: number;
   canGoNext: boolean;
   canGoPrev: boolean;
@@ -28,6 +28,7 @@ interface ChallengesLayoutInnerProps {
 export function ChallengesLayoutInner({
   children,
   challenge,
+  challenges,
   currentIndex,
   canGoNext,
   canGoPrev,
@@ -90,7 +91,10 @@ export function ChallengesLayoutInner({
     setPersistedSubcategory,
   ]);
 
-  const filteredChallenges = getChallengesBySubcategory(selectedSubcategory);
+  const filteredChallenges = getChallengesBySubcategory(
+    challenges,
+    selectedSubcategory,
+  );
 
   const toggleDomain = (domain: DomainCategory) => {
     setPersistedExpandedDomains((prev) => {
@@ -114,7 +118,10 @@ export function ChallengesLayoutInner({
       });
     }
 
-    const firstInSubcategory = getChallengesBySubcategory(subcategory)[0];
+    const firstInSubcategory = getChallengesBySubcategory(
+      challenges,
+      subcategory,
+    )[0];
     if (firstInSubcategory) {
       router.push(`/challenges/${firstInSubcategory.id}`);
     }
@@ -171,7 +178,7 @@ export function ChallengesLayoutInner({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [canGoNext, canGoPrev, nextSlug, prevSlug, router]);
+  }, [canGoNext, canGoPrev, challenges, nextSlug, prevSlug, router]);
 
   const handleSelectChallenge = (challengeId: string) => {
     const c = challenges.find((ch) => ch.id === challengeId);
@@ -188,6 +195,7 @@ export function ChallengesLayoutInner({
         open={searchOpen}
         onOpenChange={setSearchOpen}
         onSelectChallenge={handleSelectChallenge}
+        challenges={challenges}
       />
 
       {/* Sidebar */}
@@ -199,6 +207,7 @@ export function ChallengesLayoutInner({
         onToggleDomain={toggleDomain}
         onSubcategoryChange={handleSubcategoryChange}
         challengeCount={challenges.length}
+        challenges={challenges}
       />
 
       {/* Main Content */}

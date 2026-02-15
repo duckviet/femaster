@@ -1,0 +1,31 @@
+{
+  "id": "undo-redo",
+  "title": "Undo/Redo System",
+  "domain": "react-architecture",
+  "subcategory": "state-management",
+  "difficulty": "Senior",
+  "statement": "Implement an undo/redo system that tracks state changes and allows users to navigate through command history. This is a fundamental pattern for applications like drawing tools, text editors, and design software.\n\nYour implementation should:\n1. Maintain a history of states\n2. Provide undo() and redo() methods\n3. Handle command execution and rollback\n4. Manage the history stack efficiently\n5. Support clearing history when new changes occur after undo",
+  "constraints": [
+    "Must support arbitrary state objects",
+    "Undo/redo operations must be O(1)",
+    "Must handle state mutations safely (use immutability)",
+    "Must clear redo stack when new command executed after undo",
+    "Must provide canUndo/canRedo state indicators"
+  ],
+  "complexity": "Time: O(1) for undo/redo, Space: O(n) where n is history size",
+  "code": [
+    {
+      "language": "typescript",
+      "content": "interface Command {\n  execute(): void;\n  undo(): void;\n}\n\nclass UndoRedoManager {\n  private history: Command[] = [];\n  private currentIndex: number = -1;\n\n  execute(command: Command): void {\n    // Remove any future history when new command is executed\n    this.history = this.history.slice(0, this.currentIndex + 1);\n    \n    command.execute();\n    this.history.push(command);\n    this.currentIndex++;\n  }\n\n  undo(): boolean {\n    if (!this.canUndo) return false;\n    \n    this.history[this.currentIndex].undo();\n    this.currentIndex--;\n    return true;\n  }\n\n  redo(): boolean {\n    if (!this.canRedo) return false;\n    \n    this.currentIndex++;\n    this.history[this.currentIndex].execute();\n    return true;\n  }\n\n  get canUndo(): boolean {\n    return this.currentIndex >= 0;\n  }\n\n  get canRedo(): boolean {\n    return this.currentIndex < this.history.length - 1;\n  }\n\n  clear(): void {\n    this.history = [];\n    this.currentIndex = -1;\n  }\n\n  getHistory(): Command[] {\n    return [...this.history];\n  }\n\n  getCurrentIndex(): number {\n    return this.currentIndex;\n  }\n}\n\n// Example usage with drawing commands\nclass DrawCommand implements Command {\n  constructor(\n    private points: Array<{ x: number; y: number }>,\n    private context: CanvasRenderingContext2D | null\n  ) {}\n\n  execute(): void {\n    if (!this.context) return;\n    this.context.strokeStyle = '#000';\n    this.context.beginPath();\n    this.points.forEach((p, i) => {\n      if (i === 0) this.context!.moveTo(p.x, p.y);\n      else this.context!.lineTo(p.x, p.y);\n    });\n    this.context.stroke();\n  }\n\n  undo(): void {\n    if (!this.context) return;\n    // In real app, would redraw entire canvas from scratch\n    this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);\n  }\n}\n\n// Use with React\nconst [manager] = useState(() => new UndoRedoManager());\n\nconst handleAddCommand = (command: Command) => {\n  manager.execute(command);\n  forceUpdate();\n};\n\nconst handleUndo = () => {\n  if (manager.undo()) forceUpdate();\n};\n\nconst handleRedo = () => {\n  if (manager.redo()) forceUpdate();\n};"
+    }
+  ],
+  "commonMistakes": [
+    "Not clearing redo history when executing new command after undo",
+    "Mutating state directly instead of creating new state objects",
+    "Using push/pop which doesn't handle redo properly - use index-based approach",
+    "Forgetting to check canUndo/canRedo before operations",
+    "Not properly implementing undo - need to actually reverse the command, not just remove it",
+    "Losing reference to canvas context or state when undoing commands"
+  ],
+  "demoComponentKey": "UndoRedoDemo"
+}
