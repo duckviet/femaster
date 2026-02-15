@@ -44,7 +44,7 @@ export function ChallengeHeader({
   onOpenSearch,
 }: ChallengeHeaderProps) {
   return (
-    <header className="border-b p-4 flex items-center gap-4">
+    <header className="border-b p-4 flex items-center gap-4 h-16">
       <Select value={selectedChallengeId} onValueChange={onChallengeChange}>
         <SelectTrigger className="w-[320px]">
           <SelectValue placeholder="Select challenge" />
