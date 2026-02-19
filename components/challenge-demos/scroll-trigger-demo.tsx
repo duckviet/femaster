@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { SplitText, DrawSVGPlugin, ScrollTrigger } from "gsap/all";
 
 import gsap from "gsap";
+import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, DrawSVGPlugin);
 
@@ -32,11 +33,12 @@ export function ScrollTriggerDemo() {
   return (
     <div
       ref={scrollerRef}
-      className={`${lora.className} bg-card text-(--font) relative w-full overflow-y-auto overflow-x-hidden`}
+      className={cn(
+        "aspect-video w-full overflow-y-auto overflow-x-hidden relative",
+        lora.className,
+      )}
       style={
         {
-          height: "100%",
-          minHeight: "500px",
           "--dark-green": "#1DB000",
           "--light-green": "#3CDE1B",
           "--font": "#3C3C3C",
@@ -46,7 +48,7 @@ export function ScrollTriggerDemo() {
       }
     >
       <div
-        className="absolute inset-0 w-full h-full bg-repeat opacity-10 mix-blend-hard-light pointer-events-none"
+        className="absolute inset-0 w-full object-fill h-full bg-repeat opacity-10 mix-blend-hard-light pointer-events-none"
         style={{
           backgroundImage: `url(${noise.src})`,
           zIndex: 90,

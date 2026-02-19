@@ -16,3 +16,6 @@ export { MemoStrategyDemo } from "./memo-strategy-demo";
 export { InfiniteScrollDemo } from "./infinite-scroll-demo";
 export { CustomCursorDemo } from "./custom-cursor-demo";
 export { ScrollTriggerDemo } from "./scroll-trigger-demo";
+export { ImageSequenceDemo } from "./image-sequence-demo";
+export { ParallaxZoomDemo } from "./parallax-zoom";
+export { ZoomInEntranceDemo } from "./zoom-in-entrance";
