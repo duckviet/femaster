@@ -1,0 +1,21 @@
+{
+  "id": "zoom-in-entrance",
+  "title": "Zoom In Entrance",
+  "domain": "animation-interaction",
+  "subcategory": "page-transition",
+  "difficulty": "Mid",
+  "demoComponentKey": "ZoomInEntranceDemo",
+  "statement": "",
+  "constraints": [""],
+  "complexity": "",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "use client"
+    }
+  ],
+  "content": ["\"use client\";"],
+  "language": "tsx",
+
+  "commonMistakes": [""]
+}

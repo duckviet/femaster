@@ -25,7 +25,9 @@ export type SkillSubcategory =
   | "event-systems"
   // Animation & Motion
   | "custom-cursor"
-  | "scroll-trigger";
+  | "scroll-trigger"
+  | "image-sequence"
+  | "page-transition";
 
 export interface Challenge {
   id: string;
@@ -159,6 +161,16 @@ export const domainStructure: DomainInfo[] = [
       {
         id: "scroll-trigger",
         label: "Scroll Trigger",
+        description: "Motion values, springs, transforms",
+      },
+      {
+        id: "image-sequence",
+        label: "Image Sequence",
+        description: "Motion values, springs, transforms",
+      },
+      {
+        id: "page-transition",
+        label: "Page Transition",
         description: "Motion values, springs, transforms",
       },
     ],

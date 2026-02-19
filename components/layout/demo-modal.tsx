@@ -1,4 +1,3 @@
-// DemoModal — fix double render
 import {
   Dialog,
   DialogContent,
@@ -6,7 +5,7 @@ import {
   DialogOverlay,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { IconMaximize } from "@tabler/icons-react";
 
@@ -16,6 +15,7 @@ interface DemoModalProps {
 
 export function DemoModal({ children }: DemoModalProps) {
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const inlineRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="relative">
@@ -30,7 +30,14 @@ export function DemoModal({ children }: DemoModalProps) {
         Extend
       </Button>
 
-      {!isDemoModalOpen && children}
+      {/* Luôn mount children, chỉ ẩn bằng CSS khi modal mở
+          → tránh unmount/remount làm fitty mất context */}
+      <div
+        ref={inlineRef}
+        style={{ display: isDemoModalOpen ? "none" : undefined }}
+      >
+        {children}
+      </div>
 
       <Dialog open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen}>
         <DialogOverlay className="bg-black/50" />
@@ -38,9 +45,9 @@ export function DemoModal({ children }: DemoModalProps) {
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Live Demo</DialogTitle>
           </DialogHeader>
-          <div className="flex-1 w-full overflow-hidden rounded-md border bg-background relative">
-            {isDemoModalOpen && children}
-          </div>
+          {/* Render riêng trong modal — component sẽ mount lại khi mở modal,
+                nhưng lúc này container đã có kích thước thật */}
+          {isDemoModalOpen && children}
         </DialogContent>
       </Dialog>
     </div>

@@ -17,6 +17,9 @@ import {
   InfiniteScrollDemo,
   CustomCursorDemo,
   ScrollTriggerDemo,
+  ImageSequenceDemo,
+  ParallaxZoomDemo,
+  ZoomInEntranceDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -38,6 +41,9 @@ export const demoRegistry = {
   InfiniteScrollDemo: InfiniteScrollDemo,
   CustomCursorDemo: CustomCursorDemo,
   ScrollTriggerDemo: ScrollTriggerDemo,
+  ImageSequenceDemo: ImageSequenceDemo,
+  ParallaxZoomDemo: ParallaxZoomDemo,
+  ZoomInEntranceDemo: ZoomInEntranceDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;
