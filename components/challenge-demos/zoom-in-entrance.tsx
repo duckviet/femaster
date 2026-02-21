@@ -89,8 +89,16 @@ export function ZoomInEntranceDemo() {
 
         {/* Ảnh giữa */}
         <div className="image-section flex gap-2">
-          <img src="/waka/waka-1.jpg" className="w-1/4 h-full" alt="waka 1" />
-          <img src="/waka/waka-2.jpg" className="w-3/4 h-full" alt="waka 2" />
+          <img
+            src="/demo-image/waka/waka-1.jpg"
+            className="w-1/4 h-full"
+            alt="waka 1"
+          />
+          <img
+            src="/demo-image/waka/waka-2.jpg"
+            className="w-3/4 h-full"
+            alt="waka 2"
+          />
         </div>
 
         {/* WAKA dưới */}

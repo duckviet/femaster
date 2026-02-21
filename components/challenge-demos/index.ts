@@ -19,3 +19,4 @@ export { ScrollTriggerDemo } from "./scroll-trigger-demo";
 export { ImageSequenceDemo } from "./image-sequence-demo";
 export { ParallaxZoomDemo } from "./parallax-zoom";
 export { ZoomInEntranceDemo } from "./zoom-in-entrance";
+export { PerspectiveSectionTransitionDemo } from "./page-transition";
