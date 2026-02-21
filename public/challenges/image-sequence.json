@@ -5,17 +5,42 @@
   "subcategory": "image-sequence",
   "difficulty": "Mid",
   "demoComponentKey": "ImageSequenceDemo",
-  "statement": "",
-  "constraints": [""],
-  "complexity": "",
+  "statement": "Tạo trải nghiệm scroll mượt mà điều khiển một chuỗi hình ảnh (image sequence) trên Canvas. Khi scroll, frame của ảnh sẽ thay đổi tương ứng, kết hợp với các overlay văn bản hiện ra tại các mốc progress cụ thể.",
+  "constraints": [
+    "Sử dụng HTML5 Canvas để render để đạt hiệu suất tối ưu (tránh DOM overhead với 300+ ảnh).",
+    "Ánh xạ giữa scroll progress (0-1) và frame number (1-300) bằng hàm remap.",
+    "Sử dụng gsap.ticker để render frame lên canvas, đảm bảo đồng bộ với refresh rate của màn hình."
+  ],
+  "complexity": "Time: O(F) preloading F frames, Space: O(F) image memory",
   "code": [
     {
       "language": "tsx",
-      "content": "use client"
+      "content": "function drawImage() {\n  let frame = remap(progress.current, 0, 1, 1, 300);\n  frame = Math.round(frame);\n  const imageToRender = images[frame];\n  if (!imageToRender) return;\n  const { x, y, width, height } = fitContent(canvas.width, canvas.height, imageToRender.width, imageToRender.height);\n  ctx.clearRect(0, 0, canvas.width, canvas.height);\n  ctx.drawImage(imageToRender, x, y, width, height);\n}\ngsap.ticker.add(drawImage);"
     }
   ],
-  "content": ["\"use client\";"],
+  "content": [
+    "export function ImageSequenceDemo() {",
+    "  const progress = useRef<number>(0);",
+    "  useGSAP(() => {",
+    "    gsap.to(progress, {",
+    "      current: 1,",
+    "      scrollTrigger: { trigger: containerRef.current, scrub: true }",
+    "    });",
+    "  }, []);",
+    "",
+    "  return (",
+    "    <div className=\"h-[400%]\">",
+    "      <div className=\"sticky top-0\">",
+    "        <ImageSequence progress={progress} />",
+    "      </div>",
+    "    </div>",
+    "  );",
+    "}"
+  ],
   "language": "tsx",
-
-  "commonMistakes": [""]
+  "commonMistakes": [
+    "Không preload ảnh dẫn đến canvas bị trắng khi scroll nhanh.",
+    "Không xử lý resize canvas khiến hình ảnh bị mờ hoặc méo.",
+    "Quên dọn dẹp gsap.ticker khi component unmount gây rò rỉ bộ nhớ."
+  ]
 }

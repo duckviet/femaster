@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import Picture1 from "@/public/parallax-zoom/1.png";
-import Picture2 from "@/public/parallax-zoom/2.png";
-import Picture3 from "@/public/parallax-zoom/3.png";
-import Picture4 from "@/public/parallax-zoom/4.png";
-import Picture5 from "@/public/parallax-zoom/5.png";
-import Picture6 from "@/public/parallax-zoom/6.png";
-import Picture7 from "@/public/parallax-zoom/7.png";
+import Picture1 from "@/public/demo-image/parallax-zoom/1.png";
+import Picture2 from "@/public/demo-image/parallax-zoom/2.png";
+import Picture3 from "@/public/demo-image/parallax-zoom/3.png";
+import Picture4 from "@/public/demo-image/parallax-zoom/4.png";
+import Picture5 from "@/public/demo-image/parallax-zoom/5.png";
+import Picture6 from "@/public/demo-image/parallax-zoom/6.png";
+import Picture7 from "@/public/demo-image/parallax-zoom/7.png";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";

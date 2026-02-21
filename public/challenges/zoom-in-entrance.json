@@ -1,21 +1,44 @@
 {
   "id": "zoom-in-entrance",
-  "title": "Zoom In Entrance",
+  "title": "Zoom In Entrance Animation",
   "domain": "animation-interaction",
   "subcategory": "page-transition",
   "difficulty": "Mid",
   "demoComponentKey": "ZoomInEntranceDemo",
-  "statement": "",
-  "constraints": [""],
-  "complexity": "",
+  "statement": "Tạo hiệu ứng entrance cho một section/poster. Section bắt đầu từ kích thước nhỏ (scale 0.2) ở giữa màn hình, các thành phần văn bản (SVG) trượt từ trên xuống và từ dưới lên. Sau một khoảng trễ, toàn bộ section sẽ phóng to lên kích thước ban đầu (scale 1.0) và trượt về vị trí mặc định.",
+  "constraints": [
+    "Sử dụng GSAP Timeline để điều phối các layer chuyển động.",
+    "Text phải dùng SVG <text> với preserveAspectRatio để dễ dàng kiểm soát kích thước.",
+    "Container chính cần có overflow-hidden để tránh hiện tượng tràn layout trong quá trình scale."
+  ],
+  "complexity": "Time: O(1) animation creation, Space: O(1)",
   "code": [
     {
       "language": "tsx",
-      "content": "use client"
+      "content": "const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });\ntl.set(container, { scale: 0.2, y: '-30%' })\n  .from('.text-top', { yPercent: -100, duration: 1.4, autoAlpha: 0 }, '<')\n  .from('.text-bottom', { yPercent: 100, duration: 1.4, autoAlpha: 0 }, '<')\n  .to(container, { scale: 1, duration: 4, delay: 1.5, y: 0 });"
     }
   ],
-  "content": ["\"use client\";"],
+  "content": [
+    "export function ZoomInEntranceDemo() {",
+    "  const containerRef = useRef<HTMLDivElement>(null);",
+    "  useGSAP(() => {",
+    "    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });",
+    "    tl.set(containerRef.current, { scale: 0.2, y: '-30%' });",
+    "    // ... animations",
+    "  }, { scope: containerRef });",
+    "",
+    "  return (",
+    "    <div ref={containerRef} className=\"p-2\">",
+    "       <div className=\"overflow-hidden\"><svg>...</svg></div>",
+    "       <div className=\"image-section\">...</div>",
+    "    </div>",
+    "  );",
+    "}"
+  ],
   "language": "tsx",
-
-  "commonMistakes": [""]
+  "commonMistakes": [
+    "Không reset lại state ban đầu (tl.set) dẫn đến animation bị lặp sai trạng thái.",
+    "Giá trị scale quá nhỏ làm text bị mờ trên một số trình duyệt.",
+    "Thiếu overflow-hidden gây ra thanh cuộn xuất hiện bất ngờ."
+  ]
 }

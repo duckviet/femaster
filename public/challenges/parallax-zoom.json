@@ -5,17 +5,26 @@
   "subcategory": "scroll-trigger",
   "difficulty": "Mid",
   "demoComponentKey": "ParallaxZoomDemo",
-  "statement": "",
-  "constraints": [""],
-  "complexity": "",
+  "statement": "Xây dựng layout parallax zoom nơi các hình ảnh được sắp xếp lớp chồng lên nhau. Khi scroll, mỗi hình ảnh sẽ scale với tốc độ khác nhau tạo ra chiều sâu không gian.",
+  "constraints": [
+    "Sử dụng mảng dữ liệu để cấu hình `scale` và `className` cho từng ảnh.",
+    "Dùng gsap.utils.toArray để lặp qua danh sách element và gán ScrollTrigger.",
+    "Tạo hiệu ứng 'infinite depth' bằng cách sử dụng scrub: true và pinned container."
+  ],
+  "complexity": "Time: O(N) initialization, Space: O(N)",
   "code": [
     {
       "language": "tsx",
-      "content": "use client"
+      "content": "els.forEach((el, index) => {\n  gsap.fromTo(el, { scale: 1 }, {\n    scale: pictures[index].scale,\n    ease: 'none',\n    scrollTrigger: {\n      trigger: container,\n      scroller: wrapper,\n      start: 'top top',\n      end: 'bottom bottom',\n      scrub: true,\n    },\n  });\n});"
     }
   ],
-  "content": ["\"use client\";"],
+  "content": [
+    "export function ParallaxZoomDemo() {\n  const wrapperRef = useRef<HTMLDivElement>(null);\n  const containerRef = useRef<HTMLDivElement>(null);\n\n  useGSAP(() => {\n    const els = gsap.utils.toArray<HTMLElement>(\".el\");\n    els.forEach((el, index) => {\n      gsap.fromTo(el, { scale: 1 }, {\n        scale: pictures[index].scale,\n        scrollTrigger: { trigger: containerRef.current, scrub: true }\n      });\n    });\n  }, { scope: containerRef });\n\n  return (\n    <div ref={wrapperRef} className=\"overflow-y-auto\">\n      <div ref={containerRef} className=\"h-[300vh] relative\">\n        <div className=\"sticky top-0 h-screen overflow-hidden\">\n          {pictures.map((img, i) => (<div className=\"el\">...</div>))}\n        </div>\n      </div>\n    </div>\n  );\n}"
+  ],
   "language": "tsx",
-
-  "commonMistakes": [""]
+  "commonMistakes": [
+    "Không tính toán tỷ lệ scale hợp lý khiến ảnh quá to hoặc quá nhỏ.",
+    "Quên sticky container làm mất hiệu ứng zoom tại chỗ.",
+    "Thiếu object-cover trên Image khiến ảnh bị méo khi scale."
+  ]
 }

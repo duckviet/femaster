@@ -170,7 +170,7 @@ function ImageSequence({ progress }: { progress: React.RefObject<number> }) {
     for (let index = 0; index < 300; index++) {
       const img = new Image();
       const imageNumber = (index + 1).toString().padStart(4, "0");
-      img.src = `/sequence/${imageNumber}.webp`;
+      img.src = `/demo-image/sequence/${imageNumber}.webp`;
       img.onload = () => {
         images[index + 1] = img;
       };

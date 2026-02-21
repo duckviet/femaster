@@ -1,23 +1,46 @@
 {
   "id": "scroll-trigger",
-  "title": "Scroll Trigger với Framer Motion",
+  "title": "GSAP Scroll Trigger & SVG Draw",
   "domain": "animation-interaction",
   "subcategory": "scroll-trigger",
   "difficulty": "Mid",
   "demoComponentKey": "ScrollTriggerDemo",
-  "statement": "Tạo custom cursor bám theo chuột bằng Framer Motion. Cursor phải có độ trễ mượt (spring), phóng to khi hover vào tiêu đề và snap về giữa màn hình trong lúc hover.",
+  "statement": "Triển khai hiệu ứng scroll animation kết hợp SplitText và DrawSVG. Khi một section được scroll vào viewport, tiêu đề sẽ hiện ra với hiệu ứng chữ trượt và các đường highlight SVG sẽ được vẽ (draw) theo tiến độ scroll hoặc trigger.",
   "constraints": [
-    "Không dùng setInterval hoặc requestAnimationFrame thủ công cho tracking."
+    "Sử dụng SplitText để tách chữ thành từng ký tự/từ để animate.",
+    "Kết hợp DrawSVGPlugin để tạo hiệu ứng vẽ tay các nét highlight.",
+    "Sử dụng ScrollTrigger để đồng bộ animation với hành vi cuộn trang."
   ],
-  "complexity": "Time: O(1) mỗi event, Space: O(1)",
+  "complexity": "Time: O(1) initialization, Space: O(1)",
   "code": [
     {
       "language": "tsx",
-      "content": ""
+      "content": "useGSAP(() => {\n  const container = containerRef.current;\n  const tl = gsap.timeline({\n    scrollTrigger: {\n      trigger: container,\n      start: 'top 80%',\n      end: 'bottom 20%',\n      toggleActions: 'play reset play reverse',\n    },\n  });\n\n  tl.to(title, { opacity: 1, duration: 1 })\n    .to(paths, { drawSVG: '0% 100%', stagger: 0.3 }, '-=0.4');\n}, { scope: containerRef });"
     }
   ],
-  "content": ["\"use client\";"],
+  "content": [
+    "gsap.registerPlugin(SplitText, ScrollTrigger, DrawSVGPlugin);",
+    "",
+    "export function ScrollTriggerDemo() {",
+    "  const containerRef = useRef<HTMLDivElement>(null);",
+    "",
+    "  useGSAP(() => {",
+    "    SplitText.create(\"h1\", { type: \"words, chars\", wordsClass: \"word\" });",
+    "    gsap.from(\"h1 .word\", { y: \"100%\", ease: \"circ.inOut\" });",
+    "  }, { scope: containerRef });",
+    "",
+    "  return (",
+    "    <div ref={containerRef}>",
+    "      <TitleSection />",
+    "      <DescriptionSection />",
+    "    </div>",
+    "  );",
+    "}"
+  ],
   "language": "tsx",
-
-  "commonMistakes": [""]
+  "commonMistakes": [
+    "Quên đăng ký plugin (gsap.registerPlugin).",
+    "Không dọn dẹp scroll trigger khi component unmount (GSAP 3.12+ useGSAP đã xử lý giúp).",
+    "Thiết lập start/end không hợp lý dẫn đến animation trigger sai thời điểm."
+  ]
 }

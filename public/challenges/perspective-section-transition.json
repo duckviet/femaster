@@ -1,0 +1,53 @@
+{
+  "id": "perspective-section-transition",
+  "title": "Perspective Section Transition",
+  "domain": "animation-interaction",
+  "subcategory": "page-transition",
+  "difficulty": "Mid",
+  "demoComponentKey": "PerspectiveSectionTransitionDemo",
+  "statement": "Tạo hiệu ứng chuyển cảnh giữa hai section với góc nhìn phối cảnh (perspective). Khi người dùng scroll, section hiện tại sẽ thu nhỏ và xoay ngược chiều kim đồng hồ, trong khi section tiếp theo sẽ phóng lớn và xoay từ góc nghiêng về trạng thái phẳng.",
+  "constraints": [
+    "Sử dụng GSAP ScrollTrigger với thuộc tính scrub để mapping trực tiếp scroll position với animation progress.",
+    "Sử dụng position: sticky cho section đầu tiên để giữ nó trong viewport khi thu nhỏ.",
+    "Kích hoạt will-change: transform để tối ưu hóa hiệu năng render layer."
+  ],
+  "complexity": "Time: O(1) initialization, Space: O(1)",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "const tl = gsap.timeline({\n  scrollTrigger: {\n    trigger: container,\n    scroller: scroller,\n    start: 'top top',\n    end: 'bottom bottom',\n    scrub: true,\n  },\n});\n\ntl.fromTo(section1, { scale: 1, rotate: 0 }, { scale: 0.8, rotate: -5 }, 0);\ntl.fromTo(section2, { scale: 0.8, rotate: 5 }, { scale: 1, rotate: 0 }, 0);"
+    }
+  ],
+  "content": [
+    "export function PerspectiveSectionTransitionDemo() {",
+    "  const scrollerRef = useRef<HTMLDivElement>(null);",
+    "  const containerRef = useRef<HTMLDivElement>(null);",
+    "",
+    "  useGSAP(() => {",
+    "    const tl = gsap.timeline({",
+    "      scrollTrigger: {",
+    "        trigger: containerRef.current,",
+    "        scroller: scrollerRef.current,",
+    "        scrub: true,",
+    "      },",
+    "    });",
+    "    // ... transitions",
+    "  }, { scope: containerRef });",
+    "",
+    "  return (",
+    "    <main ref={scrollerRef}>",
+    "      <div ref={containerRef} className=\"h-[200vh]\">",
+    "        <div className=\"section-1 sticky top-0 h-screen\">...</div>",
+    "        <div className=\"section-2 h-screen\">...</div>",
+    "      </div>",
+    "    </main>",
+    "  );",
+    "}"
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Quên set height cho container của ScrollTrigger (cần h-[200vh] để có không gian cuộn).",
+    "Thiếu sticky khiến section 1 biến mất ngay khi section 2 bắt đầu trồi lên.",
+    "Không xử lý overflow khiến layout bị vỡ khi quay (rotate)."
+  ]
+}
