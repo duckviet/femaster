@@ -1,0 +1,29 @@
+{
+  "id": "split-panel-grid-reveal",
+  "title": "Split-Screen Panel Reveal",
+  "domain": "animation-interaction",
+  "subcategory": "scroll-trigger",
+  "difficulty": "Senior",
+  "demoComponentKey": "SplitPanelGridRevealDemo",
+  "statement": "Xây dựng animation split-screen bất đối xứng: khi người dùng scroll, panel text bên trái thu hẹp dần, panel image bên phải mở rộng ra. Hiệu ứng cần scrub theo scroll và pin section trong suốt quá trình chuyển đổi.",
+  "constraints": [
+    "Dùng GSAP ScrollTrigger với pin + scrub để đồng bộ trực tiếp với vị trí cuộn.",
+    "Panel trái resize từ 70% xuống 45%, panel phải tự giãn nhờ flex layout.",
+    "Ảnh bên phải scale từ 1.15 về 1 để tạo cảm giác cinematic settle.",
+    "Toàn bộ layout và styling phải dùng Tailwind utilities (không viết file CSS riêng)."
+  ],
+  "complexity": "Time: O(1) initialization, Space: O(1)",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "const tl = gsap.timeline({\n  scrollTrigger: {\n    trigger: wrapper,\n    scroller,\n    start: 'top top',\n    end: '+=150%',\n    scrub: 1,\n    pin: true,\n  },\n});\n\ntl.to(leftPanel, { width: '45%', ease: 'none' }, 0);\ntl.to(image, { scale: 1, ease: 'none' }, 0);\ntl.from(overlayText, { y: 40, opacity: 0, duration: 0.4 }, 0.3);"
+    }
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Không thêm đủ scroll distance (end quá ngắn) khiến animation kết thúc gấp.",
+    "Quên pin section làm layout trượt đi thay vì chuyển đổi tại chỗ.",
+    "Animate trực tiếp flex-basis nhưng không cố định shrink/grow gây giật layout.",
+    "Thiếu overflow-hidden nên ảnh tràn khung khi scale lớn hơn 1."
+  ]
+}

@@ -21,6 +21,8 @@ import {
   ParallaxZoomDemo,
   ZoomInEntranceDemo,
   PerspectiveSectionTransitionDemo,
+  SplitPanelRevealDemo,
+  SplitPanelGridRevealDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -46,6 +48,8 @@ export const demoRegistry = {
   ParallaxZoomDemo: ParallaxZoomDemo,
   ZoomInEntranceDemo: ZoomInEntranceDemo,
   PerspectiveSectionTransitionDemo: PerspectiveSectionTransitionDemo,
+  SplitPanelRevealDemo: SplitPanelRevealDemo,
+  SplitPanelGridRevealDemo: SplitPanelGridRevealDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;

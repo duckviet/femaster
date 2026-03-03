@@ -20,3 +20,5 @@ export { ImageSequenceDemo } from "./image-sequence-demo";
 export { ParallaxZoomDemo } from "./parallax-zoom";
 export { ZoomInEntranceDemo } from "./zoom-in-entrance";
 export { PerspectiveSectionTransitionDemo } from "./page-transition";
+export { SplitPanelRevealDemo } from "./split-panel-reveal-demo";
+export { SplitPanelGridRevealDemo } from "./split-panel-grid-reveal-demo";
