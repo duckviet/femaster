@@ -1,0 +1,27 @@
+{
+  "id": "parallax-scrolling",
+  "title": "Parallax Scrolling with GSAP",
+  "domain": "animation-interaction",
+  "subcategory": "scroll-trigger",
+  "difficulty": "Mid",
+  "demoComponentKey": "ParallaxScrollingDemo",
+  "statement": "Xây dựng hiệu ứng parallax scrolling với tiêu đề và nhiều lớp ảnh có tốc độ dịch chuyển khác nhau theo scroll. Khi người dùng cuộn, tiêu đề trượt nhẹ lên trên, các layer ảnh phía sau di chuyển nhanh/chậm khác nhau để tạo cảm giác chiều sâu.",
+  "constraints": [
+    "Sử dụng GSAP + ScrollTrigger với `scrub: true` để đồng bộ animation theo tiến độ scroll.",
+    "Quản lý nhiều ref cho chữ và image layers bằng mảng ref (`lettersRef`, `imagesRef`).",
+    "Áp dụng timeline chung để các animation chạy đồng thời từ cùng thời điểm (`position: 0`)."
+  ],
+  "complexity": "Time: O(N) initialization, Space: O(N)",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "const tl = gsap.timeline({\n  scrollTrigger: {\n    trigger: container,\n    scroller,\n    start: 'top bottom',\n    end: 'bottom top',\n    scrub: true,\n  },\n});\n\ntl.to(titleRef.current, { y: -50 }, 0)\n  .to(imagesRef.current[1], { y: -150 }, 0)\n  .to(imagesRef.current[2], { y: -255 }, 0);\n\nlettersRef.current.forEach((letter) => {\n  if (!letter) return;\n  tl.to(letter, { y: gsap.utils.random(-100, -30) }, 0);\n});"
+    }
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Quên truyền `scroller` khi demo chạy trong container có `overflow-y-auto`, làm ScrollTrigger bắt scroll sai context.",
+    "Không kiểm tra null cho ref mảng trước khi animate, dễ gây lỗi runtime khi render lần đầu.",
+    "Đặt khoảng scroll quá ngắn (chiều cao container nhỏ) khiến parallax gần như không nhận thấy."
+  ]
+}

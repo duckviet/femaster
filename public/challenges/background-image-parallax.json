@@ -1,0 +1,27 @@
+{
+  "id": "background-image-parallax",
+  "title": "Background Image Parallax",
+  "domain": "animation-interaction",
+  "subcategory": "scroll-trigger",
+  "difficulty": "Mid",
+  "demoComponentKey": "BackgroundImageParallaxDemo",
+  "statement": "Xây dựng hiệu ứng Background Image Parallax với GSAP ScrollTrigger gồm 2 phần: (1) ảnh intro trôi dần xuống khi scroll và (2) section nội dung có ảnh nền dịch chuyển chậm hơn foreground để tạo chiều sâu.",
+  "constraints": [
+    "Sử dụng GSAP + ScrollTrigger với `scrub: true` để animation bám theo tiến độ cuộn.",
+    "Demo phải chạy trong container có `overflow-y-auto`, vì vậy ScrollTrigger cần chỉ định đúng `scroller`.",
+    "Tách foreground text và background image thành 2 layer để giữ readability khi parallax diễn ra."
+  ],
+  "complexity": "Time: O(1) initialization, Space: O(1)",
+  "code": [
+    {
+      "language": "tsx",
+      "content": "useGSAP(() => {\n  const introTween = gsap.to(introImage, {\n    yPercent: 150,\n    ease: 'none',\n    scrollTrigger: {\n      trigger: introSection,\n      scroller,\n      start: 'top top',\n      end: 'bottom top',\n      scrub: true,\n    },\n  });\n\n  const sectionTween = gsap.fromTo(\n    sectionImage,\n    { yPercent: -10 },\n    {\n      yPercent: 10,\n      ease: 'none',\n      scrollTrigger: {\n        trigger: section,\n        scroller,\n        start: 'top bottom',\n        end: 'bottom top',\n        scrub: true,\n      },\n    },\n  );\n\n  return () => {\n    introTween.kill();\n    sectionTween.kill();\n  };\n}, { scope: containerRef });"
+    }
+  ],
+  "language": "tsx",
+  "commonMistakes": [
+    "Quên truyền `scroller` cho ScrollTrigger khi demo nằm trong modal/container cuộn nội bộ.",
+    "Dùng `position: fixed` cho background trong demo embedded khiến layer thoát khỏi khung preview.",
+    "Không dùng `ease: none` với scrub dẫn đến cảm giác lag hoặc trễ chuyển động parallax."
+  ]
+}
