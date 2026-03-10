@@ -19,8 +19,12 @@ import {
   ScrollTriggerDemo,
   ImageSequenceDemo,
   ParallaxZoomDemo,
+  ParallaxScrollingDemo,
   ZoomInEntranceDemo,
   PerspectiveSectionTransitionDemo,
+  BackgroundImageParallaxDemo,
+  SplitPanelRevealDemo,
+  SplitPanelGridRevealDemo,
 } from "@/components/challenge-demos";
 
 export const demoRegistry = {
@@ -44,8 +48,12 @@ export const demoRegistry = {
   ScrollTriggerDemo: ScrollTriggerDemo,
   ImageSequenceDemo: ImageSequenceDemo,
   ParallaxZoomDemo: ParallaxZoomDemo,
+  ParallaxScrollingDemo: ParallaxScrollingDemo,
   ZoomInEntranceDemo: ZoomInEntranceDemo,
   PerspectiveSectionTransitionDemo: PerspectiveSectionTransitionDemo,
+  BackgroundImageParallaxDemo: BackgroundImageParallaxDemo,
+  SplitPanelRevealDemo: SplitPanelRevealDemo,
+  SplitPanelGridRevealDemo: SplitPanelGridRevealDemo,
 } as const;
 
 export type DemoKey = keyof typeof demoRegistry;
